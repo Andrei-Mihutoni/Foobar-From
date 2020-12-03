@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="form-style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="menu-wrapper">
+        <img class="menu-icon" src="assets/menu.png"></img>
+        <h1>FooBar</h1>
+        <img class="menu-icon" src="assets/loupe.png"></img>
+    </div>
+    <nav>
+        <ul>
+            <li class="primary-btn" id="beers-btn">Beers</li>
+            <li class="primary-btn active" id="order-btn">Quick order</li>
+            <li class="primary-btn" id="payment-btn">Payment</li>
+            <li class="primary-btn" id="cart-btn">Cart</li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="beers">
+            <div class="beer-wrapper">
+                <img class="beer-img" src="assets/beer-glass.png">
+                <div class="beer-text-wrapper">
+                    <h2>El hefe</h2>
+                    <p class="beer-stats"><span>IPA</span> * <span>7.9%</span></p>
+                    <p class="beer-desc">Refrenhing beer is so good i like it a lot ahahahah</p>
+                    <button class="primary-btn active">Learn more</button>
+                </div>
+                <div class="order-btn-wrapper">
+                    <button class="order-btn">+</button>
+                    <p class="order-amount">15</p>
+                    <button class="order-btn">-</button>
+                </div>
+                <section class="learn-more-section hidden">
+                    <h3>Aroma</h3>
+                    <p>AHAHAHAH</p>
+                    <h3>Appearance</h3>
+                    <p>AHAHAHAH</p>
+                    <h3>Flavour</h3>
+                    <p>AHAHAHAH</p>
+                </section>
+            </div>
+            <div class="beer-wrapper">
+                <div class="order-btn-wrapper">
+                    <button class="order-btn">+</button>
+                    <p class="order-amount">15</p>
+                    <button class="order-btn">-</button>
+                </div>
+                <div class="beer-text-wrapper">
+                    <h2>El hefe</h2>
+                    <p class="beer-stats"><span>IPA</span> * <span>7.9%</span></p>
+                    <p class="beer-desc">Refrenhing beer is so good i like it a lot ahahahah</p>
+                    <button class="primary-btn active">Learn more</button>
+                </div>
+                <img class="beer-img" src="assets/beer-glass.png">
+                <section class="learn-more-section hidden">
+                    <h3>Aroma</h3>
+                    <p>AHAHAHAH</p>
+                    <h3>Appearance</h3>
+                    <p>AHAHAHAH</p>
+                    <h3>Flavour</h3>
+                    <p>AHAHAHAH</p>
+                </section>
+            </div>
+        </section>
+        <section class="hidden" id="order">
+            <h1 class="section-header">WE RECOMMEND</h1>
+            <div class="beer-wrapper quick">
+                <img class="beer-img" src="assets/beer-glass.png">
+                <div class="beer-text-wrapper">
+                    <h2>El hefe</h2>
+                    <p class="beer-stats"><span>IPA</span> * <span>7.9%</span></p>
+                </div>
+                <div class="order-btn-wrapper">
+                    <button class="order-btn">+</button>
+                    <p class="order-amount">15</p>
+                    <button class="order-btn">-</button>
+                </div>
+            </div>
+            <div class="beer-wrapper quick">
+                <img class="beer-img" src="assets/beer-glass.png">
+                <div class="beer-text-wrapper">
+                    <h2>El hefe</h2>
+                    <p class="beer-stats"><span>IPA</span> * <span>7.9%</span></p>
+                </div>
+                <div class="order-btn-wrapper">
+                    <button class="order-btn">+</button>
+                    <p class="order-amount">15</p>
+                    <button class="order-btn">-</button>
+                </div>
+            </div>
+            <div class="order-total">
+                <p>TOTAL</p>
+                <h2><span>35,50</span> DKK</h2>
+                <button class="primary-btn active">Order again</button>
+            </div>
+        </section>
+        <section class="hidden" id="payment">
+            <h1 class="section-header">PAYMENT METHOD</h1>
+            <p>Set-up your preferred method of paying</p>
+            <div class="payment-options">
+                <div>
+                    <input type="radio" id="payment-mobilepay" name="payment" value="mobilepay" checked>
+                    <label for="payment-mobilepay"><img src="assets/mobilepay.png"> MobilePay</label>
+                </div>
+                <div>
+                    <input type="radio" id="payment-card" name="payment" value="card" checked>
+                    <label for="payment-card"><img src="assets/card.png">Card</label>
+                </div>
+                <div>
+                    <input type="radio" id="payment-cash" name="payment" value="cash" checked>
+                    <label for="payment-cash"><img src="assets/cash.png">Cash</label>
+                </div>
+            </div>
+            <h1 class="section-header">CREDIT CARDS</h1>
+        </section>
+        <section class="hidden" id="cart">
+            <h1 class="section-header">YOUR ORDER</h1>
+            <div class="beer-wrapper quick">
+                <img class="beer-img" src="assets/beer-glass.png">
+                <div class="beer-text-wrapper">
+                    <h2>El hefe</h2>
+                    <p class="beer-stats"><span>IPA</span> * <span>7.9%</span></p>
+                </div>
+                <div class="order-btn-wrapper">
+                    <button class="order-btn">+</button>
+                    <p class="order-amount">15</p>
+                    <button class="order-btn">-</button>
+                </div>
+            </div>
+            <div class="beer-wrapper quick">
+                <img class="beer-img" src="assets/beer-glass.png">
+                <div class="beer-text-wrapper">
+                    <h2>El hefe</h2>
+                    <p class="beer-stats"><span>IPA</span> * <span>7.9%</span></p>
+                </div>
+                <div class="order-btn-wrapper">
+                    <button class="order-btn">+</button>
+                    <p class="order-amount">15</p>
+                    <button class="order-btn">-</button>
+                </div>
+            </div>
+            <h1 class="section-header">PAYMENT</h1>
+            <button class="primary-btn active">Confirm Order</button>
+
+        </section>
+
+    </main>
+</body>
+<script src="script/form.js"></script>
+
+</html>
