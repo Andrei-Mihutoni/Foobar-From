@@ -1,5 +1,7 @@
 "use strict";
 
+
+
 import * as db from "../modules/db.mjs";
 
 
@@ -39,4 +41,11 @@ function learnMore(e) {
 }
 
 // post the orders to the Heroku server
-db.post(db.prepareData);
+
+let postingData = [
+    { name: "Hoppily Ever After", amount: 55 },
+    { name: "Row 26", amount: 2 }
+];
+
+db.post(postingData);
+
