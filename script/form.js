@@ -1,17 +1,23 @@
+"use strict";
+
+import * as db from "../modules/db.mjs";
+
+
+
 let activeSection = "beers";
 
 document.querySelectorAll("li").forEach(btn => btn.addEventListener("click", changeSection));
 document.querySelectorAll(".beer-text-wrapper .primary-btn").forEach(btn => btn.addEventListener("click", learnMore));
 
 
-function changeSection(e){
+function changeSection(e) {
 
     activeSection = e.target.id.split("-")[0];
 
 
-    document.querySelectorAll("main > section").forEach(section=> {
+    document.querySelectorAll("main > section").forEach(section => {
         console.warn(section.id, "active: " + activeSection)
-        if(section.id==activeSection){
+        if (section.id == activeSection) {
             console.log("add")
             section.classList.remove("hidden");
         } else {
@@ -27,7 +33,10 @@ function changeSection(e){
     console.log(e.target.id.split("-")[0]);
 }
 
-function learnMore(e){
+function learnMore(e) {
     console.log("learnmore");
     e.target.parentNode.parentNode.querySelector("section").classList.toggle("hidden");
 }
+
+// post the orders to the Heroku server
+db.post(db.prepareData);
