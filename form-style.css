@@ -26,6 +26,11 @@ h1 {
   display: none;
 }
 
+.flex {
+  display: flex;
+  align-items: center;
+}
+
 main {
   padding: 0 15px;
   margin-top: 50px;
@@ -106,6 +111,7 @@ li {
   justify-content: space-around;
   flex-wrap: wrap;
   margin-top: 50px;
+  width: 100%;
 }
 
 .beer-desc {
@@ -114,7 +120,7 @@ li {
 }
 
 .beer-stats {
-  font-size: 12px;
+  font-size: 15px;
 }
 
 /* ORDER */
@@ -151,6 +157,10 @@ li {
   width: 90%;
   animation: open 0.5s ease-in-out;
   overflow: hidden;
+}
+
+.learn-more-section h3 {
+  color: var(--sec-color);
 }
 
 @keyframes open {
@@ -193,6 +203,11 @@ li {
 .quick {
   align-items: center;
   justify-content: flex-start;
+  margin-top: 25px;
+}
+
+.quick:nth-child(2) {
+  margin-top: 50px;
 }
 
 .quick .order-btn-wrapper {
@@ -204,12 +219,16 @@ li {
 }
 
 .quick h2 {
-  font-size: 45px;
+  font-size: 35px;
+}
+
+.quick .beer-stats {
+  font-size: 18px;
 }
 
 .order-total {
   text-align: right;
-  margin-top: 30px;
+  margin: 30px 10px 0 auto;
 }
 
 .order-total p {
@@ -219,38 +238,69 @@ li {
 }
 
 .order-total h2 {
-  margin: 0 0 20px 0;
+  margin: 0 0 10px 0;
   color: var(--sec-color);
   font-size: 50px;
 }
 
 .order-total button {
-  font-size: 25px;
+  font-size: 20px;
 }
 
 /* PAYMENT */
 
 .payment-options {
   display: flex;
-  flex-flow: column;
   width: 80%;
   margin-left: auto;
   margin-right: auto;
   color: var(--gray-text);
 }
 
-.payment-options div {
+.payment-btn {
   display: flex;
   align-items: center;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.selected {
+  box-shadow: 0px 10px 5px 0px rgba(0, 0, 0, 0.25);
+  transform: scale(1.05);
+}
+
+.payment-btn input {
+  display: none;
+}
+
+.payment-btn input:checked {
+  display: block;
 }
 
 .payment-options label {
-  margin-left: 10px;
   display: flex;
+  flex-flow: column;
+  justify-content: center;
   align-items: center;
 }
 
 .payment-options label img {
-  margin-right: 10px;
-  width: 75px;
+  width: 85px;
+}
+
+.confirm {
+  margin: 50px 10px 0 auto;
+  display: block;
+  font-size: 20px;
+}
+
+/* SELECT */
+
+select {
+  border-radius: 15px;
+  border: solid 1px gray;
+  margin-left: 15px;
+  padding: 8px;
+  width: 90px;
+  text-align: center;
 }
