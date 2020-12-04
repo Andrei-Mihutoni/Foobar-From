@@ -23,12 +23,9 @@ function changeSection(e) {
 
 
     document.querySelectorAll("main > section").forEach(section => {
-        console.warn(section.id, "active: " + activeSection)
         if (section.id == activeSection) {
-            console.log("add")
             section.classList.remove("hidden");
         } else {
-            console.warn("hide");
             section.classList.add("hidden");
         }
     })
