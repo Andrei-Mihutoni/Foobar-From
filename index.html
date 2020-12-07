@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Foobar order form</title>
     <link rel="stylesheet" href="form-style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
@@ -75,20 +75,20 @@
         <section class="hidden" id="order">
             <h1 class="section-header">WE RECOMMEND</h1>
             <div class="flex">
-            <p>For a table of</p><select>
-                <option>1</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
-        </div>
-        <div class="flex">
-            <p>who prefer</p><select>
-                <option>IPA</option>
-                <option>Lager</option>
-                <option>Pilsner</option>
-            </select>
-        </div>
+                <p>For a table of</p><select>
+                    <option>1</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+            <div class="flex">
+                <p>who prefer</p><select>
+                    <option>IPA</option>
+                    <option>Lager</option>
+                    <option>Pilsner</option>
+                </select>
+            </div>
             <h1 class="section-header">YOUR LAST ORDER</h1>
             <div class="beer-wrapper quick">
                 <img class="beer-img" src="assets/beer-glass.png">
@@ -101,39 +101,39 @@
                     <p class="order-amount">15</p>
                     <button class="order-btn">-</button>
                 </div>
-            </>
-            <div class="beer-wrapper quick">
-                <img class="beer-img" src="assets/beer-glass.png">
-                <div class="beer-text-wrapper">
-                    <h2>El hefe</h2>
-                    <p class="beer-stats"><span>IPA</span> * <span>7.9%</span></p>
+                </>
+                <div class="beer-wrapper quick">
+                    <img class="beer-img" src="assets/beer-glass.png">
+                    <div class="beer-text-wrapper">
+                        <h2>El hefe</h2>
+                        <p class="beer-stats"><span>IPA</span> * <span>7.9%</span></p>
+                    </div>
+                    <div class="order-btn-wrapper">
+                        <button class="order-btn">+</button>
+                        <p class="order-amount">15</p>
+                        <button class="order-btn">-</button>
+                    </div>
                 </div>
-                <div class="order-btn-wrapper">
-                    <button class="order-btn">+</button>
-                    <p class="order-amount">15</p>
-                    <button class="order-btn">-</button>
+                <div class="order-total">
+                    <p>TOTAL</p>
+                    <h2><span>35,50</span> DKK</h2>
+                    <button class="primary-btn active">Order again</button>
                 </div>
-            </div>
-            <div class="order-total">
-                <p>TOTAL</p>
-                <h2><span>35,50</span> DKK</h2>
-                <button class="primary-btn active">Order again</button>
-            </div>
         </section>
         <section class="hidden" id="payment">
             <h1 class="section-header">PAYMENT METHOD</h1>
             <p>Set-up your preferred method of paying</p>
             <div class="payment-options">
                 <div class="payment-btn">
-                    <input type="radio" id="payment-mobilepay" name="payment-setting" value="mobilepay" >
+                    <input type="radio" id="payment-mobilepay" name="payment-setting" value="mobilepay">
                     <label for="payment-mobilepay"><img src="assets/mobilepay.png"> MobilePay</label>
                 </div>
                 <div class="payment-btn">
-                    <input type="radio" id="payment-card" name="payment-setting" value="card" >
+                    <input type="radio" id="payment-card" name="payment-setting" value="card">
                     <label for="payment-card"><img src="assets/card.png">Card</label>
                 </div>
                 <div class="payment-btn selected">
-                    <input type="radio" id="payment-cash" name="payment-setting" value="cash" >
+                    <input type="radio" id="payment-cash" name="payment-setting" value="cash">
                     <label for="payment-cash"><img src="assets/cash.png">Cash</label>
                 </div>
             </div>
@@ -173,15 +173,15 @@
             <h1 class="section-header">PAYMENT</h1>
             <div class="payment-options">
                 <div class="payment-btn">
-                    <input type="radio" name="payment" value="mobilepay" >
+                    <input type="radio" name="payment" value="mobilepay">
                     <label for="payment-mobilepay"><img src="assets/mobilepay.png"> MobilePay</label>
                 </div>
                 <div class="payment-btn">
-                    <input type="radio" name="payment" value="card" >
+                    <input type="radio" name="payment" value="card">
                     <label for="payment-card"><img src="assets/card.png">Card</label>
                 </div>
                 <div class="payment-btn">
-                    <input type="radio"  name="payment" value="cash" >
+                    <input type="radio" name="payment" value="cash">
                     <label for="payment-cash"><img src="assets/cash.png">Cash</label>
                 </div>
             </div>
