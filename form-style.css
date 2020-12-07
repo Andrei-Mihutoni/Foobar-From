@@ -36,6 +36,43 @@ main {
   margin-top: 50px;
 }
 
+/* SIDE MENU */
+
+.side-menu {
+  height: 100%;
+  width: 0;
+  transition: 0.3s;
+  background-color: #f1f1f1;
+  position: absolute;
+  z-index: 5;
+  padding: 0 20px;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.side-menu .primary-btn {
+  background-color: #ffffff;
+  margin: 20px 0;
+}
+
+.side-menu .active {
+  background-color: var(--primary-color);
+}
+.side-menu-wrapper {
+  margin-top: 100px;
+  display: flex column;
+}
+
+.side-menu .menu-icon {
+  margin: 20px auto 0 auto;
+  display: block;
+}
+
+.extended {
+  opacity: 1;
+  width: 100px;
+}
+
 /* MENU */
 
 .menu-wrapper {
@@ -303,4 +340,5 @@ select {
   padding: 8px;
   width: 90px;
   text-align: center;
+  background-color: #ffffff;
 }
