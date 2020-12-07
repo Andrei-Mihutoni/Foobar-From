@@ -10,10 +10,12 @@ let activeSection = "beers";
 
 document.querySelectorAll("li").forEach(btn => btn.addEventListener("click", changeSection));
 document.querySelectorAll(".beer-text-wrapper .primary-btn").forEach(btn => btn.addEventListener("click", learnMore));
-document.querySelectorAll("input[type=radio]").forEach(btn => {btn.addEventListener("click", setActivePaymentOption)
-console.log(btn)});
+document.querySelectorAll("input[type=radio]").forEach(btn => {
+    btn.addEventListener("click", setActivePaymentOption)
+    console.log(btn)
+});
 
-function setActivePaymentOption(e){
+function setActivePaymentOption(e) {
     console.log(e.target);
     e.target.parentNode.parentNode.querySelectorAll("div").forEach(div => div.classList.remove("selected"));
     e.target.parentNode.classList.add("selected");
@@ -53,3 +55,19 @@ let postingData = [
 
 db.post(postingData);
 
+
+
+
+
+//Log in
+
+
+
+// const netlifyIdentity = require('netlify-identity-widget');
+
+
+
+document.querySelector("#login-btn").addEventListener('click', function () {
+    netlifyIdentity.open();
+
+});

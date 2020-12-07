@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="form-style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 
 <body>
@@ -27,6 +28,17 @@
 
     <main>
         <section class="hidden" id="login">
+            <!-- Add a menu:
+   Log in / Sign up - when the user is not logged in
+   Username / Log out - when the user is logged in
+  -->
+            <div data-netlify-identity-menu></div>
+
+            <!-- Add a simpler button:
+    Simple button that will open the modal.
+  -->
+            <div data-netlify-identity-button>Login with Netlify Identity</div>
+
 
         </section>
         <section id="beers">
