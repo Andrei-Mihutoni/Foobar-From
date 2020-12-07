@@ -3,19 +3,28 @@
 
 
 import * as db from "../modules/db.mjs";
+import { prepareData } from "../modules/db.mjs";
 
 
 
 let activeSection = "beers";
 
+db.get(prepareData);
+
+setTimeout(() => {
+    addBeerTemplate(db.getData());
+    document.querySelectorAll(".beer-text-wrapper .primary-btn").forEach(btn => btn.addEventListener("click", learnMore));
+
+    const orderBtns = document.querySelectorAll(".order-btn-wrapper");
+    orderBtns.forEach(btn => btn.addEventListener("click", orderBeer));
+    
+}, 100);
+
 document.querySelectorAll("li").forEach(btn => btn.addEventListener("click", changeSection));
-document.querySelectorAll(".beer-text-wrapper .primary-btn").forEach(btn => btn.addEventListener("click", learnMore));
 document.querySelectorAll("input[type=radio]").forEach(btn => {btn.addEventListener("click", setActivePaymentOption)
 console.log(btn)});
 document.querySelectorAll("#side-menu").forEach(btn => btn.addEventListener("click", toggleSideMenu));
 
-const orderBtns = document.querySelectorAll(".order-btn-wrapper");
-orderBtns.forEach(btn => btn.addEventListener("click", orderBeer));
 
 function orderBeer(e){
     let orderAmount = e.target.parentNode.querySelector(".order-amount");
@@ -75,10 +84,27 @@ function learnMore(e) {
 
 // post the orders to the Heroku server
 
-let postingData = [
-    { name: "Hoppily Ever After", amount: 55 },
-    { name: "Row 26", amount: 2 }
-];
+// let postingData = [
+//     { name: "Hoppily Ever After", amount: 55 },
+//     { name: "Row 26", amount: 2 }
+// ];
 
-db.post(postingData);
+// db.post(postingData);
 
+function addBeerTemplate(dataArray){
+    for(let data of dataArray){
+    const template = document.querySelector("#beer-template").content.cloneNode(true);
+    template.querySelector("h2").textContent = data.name;
+    template.querySelector(".beer-type").textContent = data.category;
+    template.querySelector(".beer-alc").textContent = data.alc;
+
+    template.querySelector(".aroma").textContent = data.description.aroma;
+    template.querySelector(".appearance").textContent = data.description.appearance;
+    template.querySelector(".flavor").textContent = data.description.flavor;
+    template.querySelector(".mouthfeel").textContent = data.description.mouthfeel;
+    template.querySelector(".overall").textContent = data.description.overallImpression;
+
+
+    document.querySelector("#beers").appendChild(template);
+    }
+}

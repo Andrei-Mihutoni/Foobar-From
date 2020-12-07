@@ -33,6 +33,7 @@
 
     <main>
         <section id="beers">
+            <template id="beer-template">
             <div class="beer-wrapper">
                 <img class="beer-img" src="assets/beer-glass.png">
                 <div class="beer-text-wrapper">
@@ -48,35 +49,18 @@
                 </div>
                 <section class="learn-more-section hidden">
                     <h3>Aroma</h3>
-                    <p>AHAHAHAH</p>
+                    <p class="aroma">AHAHAHAH</p>
                     <h3>Appearance</h3>
-                    <p>AHAHAHAH</p>
+                    <p class="appearance">AHAHAHAH</p>
                     <h3>Flavour</h3>
-                    <p>AHAHAHAH</p>
+                    <p class="flavor">AHAHAHAH</p>
+                    <h3>Mouthfeel</h3>
+                    <p class="mouthfeel">AHAHAHAH</p>
+                    <h3>Overall</h3>
+                    <p class="overall">AHAHAHAH</p>
                 </section>
             </div>
-            <div class="beer-wrapper">
-                <div class="order-btn-wrapper">
-                    <button class="order-btn">+</button>
-                    <p class="order-amount">0</p>
-                    <button class="order-btn">-</button>
-                </div>
-                <div class="beer-text-wrapper">
-                    <h2>El hefe</h2>
-                    <p class="beer-stats"><span class="beer-type">IPA</span> * <span class="beer-alc">7.9%</span> <span class="beer-price">35</span> dkk</p>
-                    <p class="beer-desc">Refrenhing beer is so good i like it a lot ahahahah</p>
-                    <button class="primary-btn active">Learn more</button>
-                </div>
-                <img class="beer-img" src="assets/beer-glass.png">
-                <section class="learn-more-section hidden">
-                    <h3>Aroma</h3>
-                    <p>AHAHAHAH</p>
-                    <h3>Appearance</h3>
-                    <p>AHAHAHAH</p>
-                    <h3>Flavour</h3>
-                    <p>AHAHAHAH</p>
-                </section>
-            </div>
+        </template>
         </section>
         <section class="hidden" id="order">
             <h1 class="section-header">WE RECOMMEND</h1>
@@ -195,6 +179,7 @@
         </section>
 
     </main>
+    <footer></footer>
 </body>
 <script src="script/form.js" type="module"></script>
 
