@@ -40,7 +40,6 @@ function changeSection(e) {
 
     // hide the login section and redirect the user to "Beers" section
     if (e.target.id.split("-")[0] == "login") {
-        console.log("heeey")
         document.querySelector("#beers").classList.remove("hidden");
         document.querySelector("#login").classList.add("hidden");
         document.querySelectorAll("li").forEach(btn => btn.classList.remove("active"));
@@ -59,7 +58,6 @@ function learnMore(e) {
 }
 
 // post the orders to the Heroku server
-
 let postingData = [
     { name: "Hoppily Ever After", amount: 55 },
     { name: "Row 26", amount: 2 }
@@ -71,7 +69,22 @@ db.post(postingData);
 
 
 
-//Log in - netlify identity
+// *** Log in - netlify identity ***
+
+
+//open login modal on button click
 document.querySelector("#login-btn").addEventListener('click', function () {
     netlifyIdentity.open();
 });
+
+
+// Bind to login/logout events and log the user name
+netlifyIdentity.on('login', user => console.log('login suscessfull. User:', user.user_metadata.full_name));
+netlifyIdentity.on('logout', () => console.log('Logged out'));
+
+
+
+// const user = netlifyIdentity.currentUser();
+// console.log(user);
+// console.log(user.user_metadata.full_name);
+
