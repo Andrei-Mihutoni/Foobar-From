@@ -15,9 +15,9 @@
     <div class="side-menu">
         <img id="side-menu" class="menu-icon" src="assets/menu.png"></img>
         <div class="side-menu-wrapper">
-        <li class="primary-btn" id="payment-btn">Payment</li>
-        <li class="primary-btn" id="login-btn">Login</li>
-    </div>
+            <li class="primary-btn" id="payment-btn">Payment</li>
+            <li class="primary-btn" id="login-btn">Login</li>
+        </div>
     </div>
     <div class="menu-wrapper">
         <img id="side-menu" class="menu-icon" src="assets/menu.png"></img>
@@ -56,33 +56,33 @@
                 </div>
             </template>
             <template id="beer-template">
-            <div class="beer-wrapper">
-                <img class="beer-img" src="assets/beer-glass.png">
-                <div class="beer-text-wrapper">
-                    <h2>El hefe</h2>
-                    <p class="beer-stats"><span class="beer-type">IPA</span> * <span class="beer-alc">7.9</span>% * <span class="beer-price">35</span> dkk</p>
-                    <p class="beer-desc">Refrenhing beer is so good i like it a lot ahahahah</p>
-                    <button class="primary-btn active">Learn more</button>
+                <div class="beer-wrapper">
+                    <img class="beer-img" src="assets/beer-glass.png">
+                    <div class="beer-text-wrapper">
+                        <h2>El hefe</h2>
+                        <p class="beer-stats"><span class="beer-type">IPA</span> * <span class="beer-alc">7.9</span>% * <span class="beer-price">35</span> dkk</p>
+                        <p class="beer-desc">Refrenhing beer is so good i like it a lot ahahahah</p>
+                        <button class="primary-btn active">Learn more</button>
+                    </div>
+                    <div class="order-btn-wrapper">
+                        <button class="order-btn">+</button>
+                        <p class="order-amount">0</p>
+                        <button class="order-btn">-</button>
+                    </div>
+                    <section class="learn-more-section hidden">
+                        <h3>Aroma</h3>
+                        <p class="aroma">Aroma</p>
+                        <h3>Appearance</h3>
+                        <p class="appearance">appearance</p>
+                        <h3>Flavour</h3>
+                        <p class="flavor">flavor</p>
+                        <h3>Mouthfeel</h3>
+                        <p class="mouthfeel">mouthfeel</p>
+                        <h3>Overall</h3>
+                        <p class="overall">overall</p>
+                    </section>
                 </div>
-                <div class="order-btn-wrapper">
-                    <button class="order-btn">+</button>
-                    <p class="order-amount">0</p>
-                    <button class="order-btn">-</button>
-                </div>
-                <section class="learn-more-section hidden">
-                    <h3>Aroma</h3>
-                    <p class="aroma">Aroma</p>
-                    <h3>Appearance</h3>
-                    <p class="appearance">appearance</p>
-                    <h3>Flavour</h3>
-                    <p class="flavor">flavor</p>
-                    <h3>Mouthfeel</h3>
-                    <p class="mouthfeel">mouthfeel</p>
-                    <h3>Overall</h3>
-                    <p class="overall">overall</p>
-                </section>
-            </div>
-        </template>
+            </template>
         </section>
         <section class="hidden" id="order">
             <h1 class="section-header">WE RECOMMEND</h1>
@@ -103,11 +103,11 @@
             </div>
             <h1 class="section-header">YOUR LAST ORDER</h1>
 
-                <div class="order-total">
-                    <p>TOTAL</p>
-                    <h2><span>35,50</span> DKK</h2>
-                    <button class="primary-btn active">Order again</button>
-                </div>
+            <div class="order-total">
+                <p>TOTAL</p>
+                <h2><span>35,50</span> DKK</h2>
+                <button class="primary-btn active">Order again</button>
+            </div>
         </section>
         <section class="hidden" id="payment">
             <h1 class="section-header">PAYMENT METHOD</h1>
@@ -133,11 +133,10 @@
             <div id="beer-cart-wrapper">
 
 
-        </div>
+            </div>
             <div class="order-total">
                 <p>TOTAL</p>
                 <h2><span>35,50</span> DKK</h2>
-                <button class="primary-btn active">Order again</button>
             </div>
             <h1 class="section-header">PAYMENT</h1>
             <div class="payment-options">
@@ -154,7 +153,7 @@
                     <label for="payment-cash"><img src="assets/cash.png">Cash</label>
                 </div>
             </div>
-            <button class="primary-btn active confirm">Confirm Order</button>
+            <button class="primary-btn active confirm" id="confirm-order">Confirm Order</button>
         </section>
 
     </main>
