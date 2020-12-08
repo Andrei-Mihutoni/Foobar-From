@@ -34,11 +34,23 @@ function changeSection(e) {
         }
     })
 
-    document.querySelectorAll("li").forEach(btn => btn.classList.remove("active"));
 
+    document.querySelectorAll("li").forEach(btn => btn.classList.remove("active"));
     e.target.classList.add("active");
 
+    // hide the login section and redirect the user to "Beers" section
+    if (e.target.id.split("-")[0] == "login") {
+        console.log("heeey")
+        document.querySelector("#beers").classList.remove("hidden");
+        document.querySelector("#login").classList.add("hidden");
+        document.querySelectorAll("li").forEach(btn => btn.classList.remove("active"));
+        document.querySelector("#beers-btn").classList.add("active");
+    }
+
+
     console.log(e.target.id.split("-")[0]);
+
+
 }
 
 function learnMore(e) {
@@ -59,15 +71,7 @@ db.post(postingData);
 
 
 
-//Log in
-
-
-
-// const netlifyIdentity = require('netlify-identity-widget');
-
-
-
+//Log in - netlify identity
 document.querySelector("#login-btn").addEventListener('click', function () {
     netlifyIdentity.open();
-
 });
