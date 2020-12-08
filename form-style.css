@@ -47,7 +47,7 @@ main {
   width: 0;
   transition: 0.3s;
   background-color: var(--primary-color);
-  position: absolute;
+  position: fixed;
   z-index: 5;
   padding: 0 20px;
   opacity: 0;
@@ -63,7 +63,8 @@ main {
   background-color: #35457c;
 }
 .side-menu-wrapper {
-  margin-top: 500px;
+  position: absolute;
+  bottom: 7vh;
   display: flex column;
 }
 
