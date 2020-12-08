@@ -46,7 +46,7 @@ main {
   height: 100%;
   width: 0;
   transition: 0.3s;
-  background-color: #f1f1f1;
+  background-color: var(--primary-color);
   position: absolute;
   z-index: 5;
   padding: 0 20px;
@@ -60,7 +60,7 @@ main {
 }
 
 .side-menu .active {
-  background-color: var(--primary-color);
+  background-color: #35457c;
 }
 .side-menu-wrapper {
   margin-top: 500px;
@@ -70,6 +70,7 @@ main {
 .side-menu .menu-icon {
   margin: 20px auto 0 auto;
   display: block;
+  filter: invert(100%);
 }
 
 .extended {
@@ -322,7 +323,7 @@ li {
 }
 
 .payment-btn input:checked {
-  display: block;
+  /* display: block; */
 }
 
 .payment-options label {
