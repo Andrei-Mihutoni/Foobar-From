@@ -63,7 +63,7 @@ main {
   background-color: var(--primary-color);
 }
 .side-menu-wrapper {
-  margin-top: 100px;
+  margin-top: 500px;
   display: flex column;
 }
 
@@ -158,6 +158,8 @@ li {
 .beer-desc {
   width: 150px;
   margin: 15px 0;
+  max-height: 75px;
+  overflow: hidden;
 }
 
 .beer-stats {
@@ -202,6 +204,11 @@ li {
 
 .learn-more-section h3 {
   color: var(--sec-color);
+  margin-bottom: 0;
+}
+
+.learn-more-section p {
+  margin-top: 5px;
 }
 
 @keyframes open {

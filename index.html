@@ -33,6 +33,20 @@
 
     <main>
         <section id="beers">
+            <template id="beer-template-quick">
+                <div class="beer-wrapper quick">
+                    <img class="beer-img" src="assets/beer-glass.png">
+                    <div class="beer-text-wrapper">
+                        <h2>El hefe</h2>
+                        <p class="beer-stats"><span class="beer-type">IPA</span> * <span class="beer-alc">7.9</span>%</p>
+                    </div>
+                    <div class="order-btn-wrapper">
+                        <button class="order-btn">+</button>
+                        <p class="order-amount">0</p>
+                        <button class="order-btn">-</button>
+                    </div>
+                </div>
+            </template>
             <template id="beer-template">
             <div class="beer-wrapper">
                 <img class="beer-img" src="assets/beer-glass.png">
@@ -131,30 +145,10 @@
         </section>
         <section class="hidden" id="cart">
             <h1 class="section-header">YOUR ORDER</h1>
-            <div class="beer-wrapper quick">
-                <img class="beer-img" src="assets/beer-glass.png">
-                <div class="beer-text-wrapper">
-                    <h2>El hefe</h2>
-                    <p class="beer-stats"><span>IPA</span> * <span>7.9%</span></p>
-                </div>
-                <div class="order-btn-wrapper">
-                    <button class="order-btn">+</button>
-                    <p class="order-amount">0</p>
-                    <button class="order-btn">-</button>
-                </div>
-            </div>
-            <div class="beer-wrapper quick">
-                <img class="beer-img" src="assets/beer-glass.png">
-                <div class="beer-text-wrapper">
-                    <h2>El hefe</h2>
-                    <p class="beer-stats"><span>IPA</span> * <span>7.9%</span></p>
-                </div>
-                <div class="order-btn-wrapper">
-                    <button class="order-btn">+</button>
-                    <p class="order-amount">0</p>
-                    <button class="order-btn">-</button>
-                </div>
-            </div>
+            <div id="beer-cart-wrapper">
+
+
+        </div>
             <div class="order-total">
                 <p>TOTAL</p>
                 <h2><span>35,50</span> DKK</h2>
