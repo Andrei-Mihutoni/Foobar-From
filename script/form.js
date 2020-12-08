@@ -65,6 +65,7 @@ function addBeerToCart(beer){
 
         let isExistingBeer = false;
         let existingBeer;
+        
         const cartBeers = document.querySelectorAll("#beer-cart-wrapper .beer-wrapper");
         for(let cartBeer of cartBeers){
             if(cartBeer.id == beer.id)
@@ -104,7 +105,7 @@ function toggleSideMenu(){
     document.querySelector(".side-menu").classList.toggle("extended");
 }
 
-function setActivePaymentOption(e){
+function setActivePaymentOption(e) {
     console.log(e.target);
     e.target.parentNode.parentNode.querySelectorAll("div").forEach(div => div.classList.remove("selected"));
     e.target.parentNode.classList.add("selected");
@@ -126,11 +127,22 @@ function changeSection(e) {
         }
     })
 
-    document.querySelectorAll("li").forEach(btn => btn.classList.remove("active"));
 
+    document.querySelectorAll("li").forEach(btn => btn.classList.remove("active"));
     e.target.classList.add("active");
 
+    // hide the login section and redirect the user to "Beers" section
+    if (e.target.id.split("-")[0] == "login") {
+        document.querySelector("#beers").classList.remove("hidden");
+        document.querySelector("#login").classList.add("hidden");
+        document.querySelectorAll("li").forEach(btn => btn.classList.remove("active"));
+        document.querySelector("#beers-btn").classList.add("active");
+    }
+
+
     console.log(e.target.id.split("-")[0]);
+
+
 }
 
 function learnMore(e) {
@@ -162,7 +174,30 @@ function addBeerTemplate(dataArray){
     template.querySelector(".mouthfeel").textContent = data.description.mouthfeel;
     template.querySelector(".overall").textContent = data.description.overallImpression;
 
-
     document.querySelector("#beers").appendChild(template);
     }
 }
+
+
+
+
+// *** Log in - netlify identity ***
+
+//! NETLIFY LINK FOR LOCAL TESTING: https://jovial-heisenberg-33c1c2.netlify.app
+
+//open login modal on button click
+document.querySelector("#login-btn").addEventListener('click', function () {
+    netlifyIdentity.open();
+});
+
+
+// Bind to login/logout events and log the user name
+netlifyIdentity.on('login', user => console.log('login suscessfull. User:', user.user_metadata.full_name));
+netlifyIdentity.on('logout', () => console.log('Logged out'));
+
+
+
+// const user = netlifyIdentity.currentUser();
+// console.log(user);
+// console.log(user.user_metadata.full_name);
+

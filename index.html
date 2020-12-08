@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="form-style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 
 <body>
@@ -28,10 +29,18 @@
             <li class="primary-btn active" id="beers-btn">Beers</li>
             <li class="primary-btn" id="order-btn">Quick order</li>
             <li class="primary-btn" id="cart-btn">Cart</li>
+            <li class="primary-btn" id="login-btn">Login</li>
         </ul>
     </nav>
 
     <main>
+        <section class="hidden" id="login">
+
+            <div data-netlify-identity-menu></div>
+            <div data-netlify-identity-button>Login with Netlify Identity</div>
+
+
+        </section>
         <section id="beers">
             <template id="beer-template-quick">
                 <div class="beer-wrapper quick">
@@ -101,25 +110,7 @@
                     <button class="primary-btn active">Order again</button>
                 </div>
         </section>
-        <section class="hidden" id="payment">
-            <h1 class="section-header">PAYMENT METHOD</h1>
-            <p>Set-up your preferred method of paying</p>
-            <div class="payment-options">
-                <div class="payment-btn">
-                    <input type="radio" id="payment-mobilepay" name="payment-setting" value="mobilepay">
-                    <label for="payment-mobilepay"><img src="assets/mobilepay.png"> MobilePay</label>
-                </div>
-                <div class="payment-btn">
-                    <input type="radio" id="payment-card" name="payment-setting" value="card">
-                    <label for="payment-card"><img src="assets/card.png">Card</label>
-                </div>
-                <div class="payment-btn selected">
-                    <input type="radio" id="payment-cash" name="payment-setting" value="cash">
-                    <label for="payment-cash"><img src="assets/cash.png">Cash</label>
-                </div>
-            </div>
-            <h1 class="section-header">CREDIT CARDS</h1>
-        </section>
+
         <section class="hidden" id="cart">
             <h1 class="section-header">YOUR ORDER</h1>
             <div id="beer-cart-wrapper">
