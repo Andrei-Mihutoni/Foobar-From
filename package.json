@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Andrei-Mihutoni/fooBar#readme",
   "dependencies": {
+    "@algolia/netlify-plugin-crawler": "0.0.21",
     "netlify-identity-widget": "^1.9.1"
   }
 }
