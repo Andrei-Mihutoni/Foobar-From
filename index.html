@@ -9,6 +9,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@algolia/algoliasearch-netlify-frontend@1/dist/algoliasearchNetlify.css" /> -->
+
 </head>
 
 <body>
@@ -38,12 +42,12 @@
             <div data-netlify-identity-menu></div>
             <div data-netlify-identity-button>Login with Netlify Identity</div>
         </section>
-        <section id="search">
+        <div id="search">
             <label for="site-search">Search the site:</label>
             <input type="search" id="site-search" name="q" aria-label="Search through site content">
 
             <button>Search</button>
-        </section>
+        </div>
 
         <section id="beers">
             <template id="beer-template-quick">
@@ -165,5 +169,16 @@
     <footer></footer>
 </body>
 <script src="script/form.js" type="module"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@algolia/algoliasearch-netlify-frontend@1/dist/algoliasearchNetlify.js"></script>
+<script type="text/javascript">
+    algoliasearchNetlify({
+        appId: '<YOUR_ALGOLIA_APP_ID>',
+        apiKey: '<YOUR_ALGOLIA_API_KEY>',
+        siteId: '<YOUR_NETLIFY_SITE_ID>',
+        branch: '<YOUR_TARGET_GIT_BRANCH>',
+        selector: 'div#search',
+    });
+</script>
 
 </html>
