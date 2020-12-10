@@ -131,9 +131,24 @@ function sendOrder() {
         })
     });
 
-    console.log(postingData)
+    console.log(postingData);
     db.post(postingData);
+    toggleOrderScreen(orderMessage);
 };
+
+function toggleOrderScreen(message){
+
+    let orderFeedbackScreen = document.querySelector("#order-feedback-screen");
+
+    // if(message.message=="added"){
+    //     orderFeedbackScreen.querySelector("h1").textContent = "Your order was successfully sent!";
+    // } else {
+    //     orderFeedbackScreen.querySelector("h1").textContent = 
+    // }
+    orderFeedbackScreen.querySelector("h1").textContent = "Your order was successfully sent!";
+
+    document.querySelector("#order-feedback-screen").classList.toggle("hidden");
+}
 
 function addBeerTemplate(dataArray) {
     for (let data of dataArray) {

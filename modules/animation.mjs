@@ -10,6 +10,11 @@ document.querySelectorAll("input[type=radio]").forEach(btn => {
     console.log(btn)
 });
 document.querySelectorAll("#side-menu").forEach(btn => btn.addEventListener("click", toggleSideMenu));
+document.querySelector("#order-feedback-screen button").addEventListener("click", toggleOrderScreen);
+
+function toggleOrderScreen(){
+    document.querySelector("#order-feedback-screen").classList.toggle("hidden");
+}
 
 function changeSection(e) {
 
@@ -54,3 +59,4 @@ function setActivePaymentOption(e) {
     e.target.parentNode.parentNode.querySelectorAll("div").forEach(div => div.classList.remove("selected"));
     e.target.parentNode.classList.add("selected");
 }
+
