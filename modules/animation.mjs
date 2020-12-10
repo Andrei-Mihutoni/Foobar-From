@@ -54,10 +54,3 @@ function setActivePaymentOption(e) {
     e.target.parentNode.parentNode.querySelectorAll("div").forEach(div => div.classList.remove("selected"));
     e.target.parentNode.classList.add("selected");
 }
-
-
-function learnMore(e) {
-    console.log("learnmore");
-    e.target.parentNode.parentNode.querySelector("section").classList.toggle("hidden");
-}
-

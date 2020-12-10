@@ -39,8 +39,10 @@ function orderBeer(e) {
 
     if (e.target.parentNode.parentNode.parentNode.id == "beers") {
         addBeerToCart(e.target.parentNode.parentNode);
+        updateCartTotal();
     } else {
         changeBeerQuantity(e.target.parentNode.parentNode);
+        updateCartTotal();
     }
 }
 
@@ -59,6 +61,17 @@ function changeBeerQuantity(beer) {
         beer.parentNode.removeChild(beer);
 }
 
+function updateCartTotal(){
+
+    let totalPrice = 0;
+    document.querySelectorAll("#beer-cart-wrapper .beer-wrapper").forEach(beer => {
+        totalPrice += parseInt(beer.querySelector(".beer-price").textContent) * parseInt(beer.querySelector(".order-amount").textContent);
+    })
+
+    document.querySelector("#cart .order-total h2 span").textContent = totalPrice;
+}
+
+
 function addBeerToCart(beer) {
 
     let isExistingBeer = false;
@@ -69,9 +82,11 @@ function addBeerToCart(beer) {
         if (cartBeer.id == beer.id)
             isExistingBeer = true;
         existingBeer = cartBeer;
+
     }
 
     console.log(parseInt(beer.querySelector(".order-amount").textContent))
+
     if (!isExistingBeer) {
         if (parseInt(beer.querySelector(".order-amount").textContent) != 0) {
             const newBeer = document.querySelector("#beer-template-quick").content.cloneNode(true);
@@ -79,6 +94,7 @@ function addBeerToCart(beer) {
             newBeer.querySelector("h2").textContent = beer.querySelector("h2").textContent;
             newBeer.querySelector(".beer-type").textContent = beer.querySelector(".beer-type").textContent;
             newBeer.querySelector(".beer-alc").textContent = beer.querySelector(".beer-alc").textContent;
+            newBeer.querySelector(".beer-price").textContent = beer.querySelector(".beer-price").textContent;
             newBeer.querySelector(".order-amount").textContent = beer.querySelector(".order-amount").textContent;
 
             const orderBtns = newBeer.querySelectorAll(".order-btn-wrapper");
