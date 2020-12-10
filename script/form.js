@@ -133,7 +133,7 @@ function sendOrder() {
 
     console.log(postingData);
     db.post(postingData);
-    toggleOrderScreen(orderMessage);
+    toggleOrderScreen();
 };
 
 function toggleOrderScreen(message){
