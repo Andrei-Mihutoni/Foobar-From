@@ -132,22 +132,35 @@ function sendOrder() {
     });
 
     console.log(postingData);
+
+    if(postingData.length!=0){
     db.post(postingData);
-    toggleOrderScreen();
+    setTimeout(() => {
+        let response = db.getResponse();       
+        
+        if (response.status == 500){ 
+            document.querySelector("#order-response-text").textContent = response.message;
+        }else{
+            toggleOrderScreen("Order was successfully added!", true);
+            document.querySelector("#beer-cart-wrapper").innerHTML = "";
+            updateCartTotal();
+        }
+    }, 100);
+    }
+
 };
 
-function toggleOrderScreen(message){
+function toggleOrderScreen(message, showQueue){
 
     let orderFeedbackScreen = document.querySelector("#order-feedback-screen");
 
-    // if(message.message=="added"){
-    //     orderFeedbackScreen.querySelector("h1").textContent = "Your order was successfully sent!";
-    // } else {
-    //     orderFeedbackScreen.querySelector("h1").textContent = 
-    // }
-    orderFeedbackScreen.querySelector("h1").textContent = "Your order was successfully sent!";
+    if(showQueue){
+        orderFeedbackScreen.querySelector("p").classList.add("hidden");
+    }
 
-    document.querySelector("#order-feedback-screen").classList.toggle("hidden");
+    orderFeedbackScreen.querySelector("h1").textContent = message;
+
+    orderFeedbackScreen.classList.toggle("hidden");
 }
 
 function addBeerTemplate(dataArray) {
@@ -189,6 +202,7 @@ netlifyIdentity.on('logout', () => console.log('Logged out'));
 
 
 // const user = netlifyIdentity.currentUser();
+// console.log(user);
 // console.log(user);
 // console.log(user.user_metadata.full_name);
 

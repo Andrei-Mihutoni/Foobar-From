@@ -7,7 +7,7 @@ let activeSection = "beers";
 document.querySelectorAll("li").forEach(btn => btn.addEventListener("click", changeSection));
 document.querySelectorAll("input[type=radio]").forEach(btn => {
     btn.addEventListener("click", setActivePaymentOption)
-    console.log(btn)
+    console.log(btn);
 });
 document.querySelectorAll("#side-menu").forEach(btn => btn.addEventListener("click", toggleSideMenu));
 document.querySelector("#order-feedback-screen button").addEventListener("click", toggleOrderScreen);

@@ -9,6 +9,7 @@ const getURL = "https://foobarserver.herokuapp.com/beertypes";
 
 
 let rootData = "";
+let response = "";
 
 
 // POST TO DB
@@ -25,7 +26,9 @@ export function post(data) {
         body: postData
     })
         .then(res => res.json())
-        .then(data => console.log(data));
+        .then(data => {console.log(data)
+            response = data;
+        });
 }
 
 export function get(callback) {
@@ -47,4 +50,8 @@ function showData(data){
 
 export function getData(){
     return rootData;
+}
+
+export function getResponse(){
+    return response;
 }
