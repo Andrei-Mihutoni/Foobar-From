@@ -16,6 +16,7 @@ setTimeout(() => {
 
 function init() {
     addBeerTemplate(db.getData());
+
     document.querySelectorAll(".beer-text-wrapper .primary-btn").forEach(btn => btn.addEventListener("click", learnMore))
 
     const orderBtns = document.querySelectorAll(".order-btn-wrapper button");
@@ -37,6 +38,7 @@ function orderBeer(e) {
             orderAmount.textContent = parseInt(orderAmount.textContent) - 1;
     }
 
+    //if user clicks + - on the beers section
     if (e.target.parentNode.parentNode.parentNode.id == "beers") {
         addBeerToCart(e.target.parentNode.parentNode);
         updateCartTotal();
@@ -62,8 +64,8 @@ function changeBeerQuantity(beer) {
 }
 
 function updateCartTotal(){
-
     let totalPrice = 0;
+
     document.querySelectorAll("#beer-cart-wrapper .beer-wrapper").forEach(beer => {
         totalPrice += parseInt(beer.querySelector(".beer-price").textContent) * parseInt(beer.querySelector(".order-amount").textContent);
     })
@@ -77,16 +79,17 @@ function addBeerToCart(beer) {
     let isExistingBeer = false;
     let existingBeer;
 
+    //check if there is a beer in cart with same id as beer in beers section
     const cartBeers = document.querySelectorAll("#beer-cart-wrapper .beer-wrapper");
     for (let cartBeer of cartBeers) {
         if (cartBeer.id == beer.id)
             isExistingBeer = true;
         existingBeer = cartBeer;
-
     }
 
     console.log(parseInt(beer.querySelector(".order-amount").textContent))
 
+    //create new template in cart
     if (!isExistingBeer) {
         if (parseInt(beer.querySelector(".order-amount").textContent) != 0) {
             const newBeer = document.querySelector("#beer-template-quick").content.cloneNode(true);
@@ -100,6 +103,7 @@ function addBeerToCart(beer) {
             const orderBtns = newBeer.querySelectorAll(".order-btn-wrapper");
             orderBtns.forEach(btn => btn.addEventListener("click", orderBeer))
 
+            //give random id to match beer
             const randId = Math.floor(Math.random() * Math.floor(300));
             beer.id = randId;
             newBeer.querySelector(".beer-wrapper").id = randId;
@@ -133,8 +137,10 @@ function sendOrder() {
 
     console.log(postingData);
 
+
     if(postingData.length!=0){
     db.post(postingData);
+    //need timeout to get response
     setTimeout(() => {
         let response = db.getResponse();       
         
@@ -201,7 +207,7 @@ netlifyIdentity.on('logout', () => console.log('Logged out'));
 
 
 
-// const user = netlifyIdentity.currentUser();
+const user = netlifyIdentity.currentUser();
 // console.log(user);
 // console.log(user);
 // console.log(user.user_metadata.full_name);

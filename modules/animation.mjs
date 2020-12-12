@@ -2,7 +2,7 @@
 
 
 let activeSection = "beers";
-
+const user = netlifyIdentity.currentUser();
 
 document.querySelectorAll("li").forEach(btn => btn.addEventListener("click", changeSection));
 document.querySelectorAll("input[type=radio]").forEach(btn => {
@@ -20,6 +20,7 @@ function changeSection(e) {
 
     activeSection = e.target.id.split("-")[0];
 
+    //close side menu on change section
     if (document.querySelector(".side-menu").classList.contains("extended"))
         document.querySelector(".side-menu").classList.toggle("extended")
 
@@ -32,22 +33,35 @@ function changeSection(e) {
         }
     })
 
-
+    //add active class to active section button
     document.querySelectorAll("li").forEach(btn => btn.classList.remove("active"));
     e.target.classList.add("active");
 
+
+    if(activeSection == "payment") {
+        console.log(user);
+        if(user==null){
+            netlifyIdentity.open();
+            document.querySelector("#beers").classList.remove("hidden");
+            document.querySelector("#login").classList.add("hidden");
+            document.querySelectorAll("li").forEach(btn => btn.classList.remove("active"));
+            document.querySelector("#beers-btn").classList.add("active");
+            activeSection = "beers";
+        }
+    }
+
     // hide the login section and redirect the user to "Beers" section
-    if (e.target.id.split("-")[0] == "login") {
+    if (activeSection == "login") {
         document.querySelector("#beers").classList.remove("hidden");
         document.querySelector("#login").classList.add("hidden");
         document.querySelectorAll("li").forEach(btn => btn.classList.remove("active"));
         document.querySelector("#beers-btn").classList.add("active");
+        activeSection = "beers";
     }
 
 
-    console.log(e.target.id.split("-")[0]);
 
-
+    console.log(activeSection);
 }
 
 function toggleSideMenu() {
