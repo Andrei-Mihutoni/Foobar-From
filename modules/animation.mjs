@@ -2,7 +2,6 @@
 
 
 let activeSection = "beers";
-const user = netlifyIdentity.currentUser();
 
 document.querySelectorAll("li").forEach(btn => btn.addEventListener("click", changeSection));
 document.querySelectorAll("input[type=radio]").forEach(btn => {
@@ -39,6 +38,7 @@ function changeSection(e) {
 
 
     if(activeSection == "payment") {
+        const user = netlifyIdentity.currentUser();
         console.log(user);
         if(user==null){
             netlifyIdentity.open();

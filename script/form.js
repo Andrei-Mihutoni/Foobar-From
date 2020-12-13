@@ -8,7 +8,38 @@ import { prepareData } from "../modules/db.mjs";
 
 db.get(prepareData);
 
-document.querySelector("#confirm-order").addEventListener("click", sendOrder)
+document.querySelector("#confirm-order").addEventListener("click", function(){
+    sendOrder("#beer-cart-wrapper");
+});
+document.querySelector("#confirm-last-order").addEventListener("click", function(){
+    sendOrder("#last-order-wrapper");
+});
+document.querySelector("#login-btn").addEventListener('click', function () {
+    netlifyIdentity.open();
+});
+netlifyIdentity.on('login', user => {
+    console.log('login suscessfull. User:', user.user_metadata.full_name)
+    checkLoggedIn();
+    setTimeout(() => {
+        addPreviousOrder();        
+    }, 100);
+});
+netlifyIdentity.on('logout', () => {
+    console.log('Logged out')
+    checkLoggedIn();   
+});
+
+function checkLoggedIn(){
+    const user = netlifyIdentity.currentUser();
+    if (user == null) {
+        document.querySelector("#logged-in-text").classList.remove("hidden");
+        document.querySelector("#order .order-total").classList.add("hidden");
+    } else {
+        document.querySelector("#order .order-total").classList.remove("hidden");
+        document.querySelector("#logged-in-text").classList.add("hidden");
+    }
+}
+
 
 setTimeout(() => {
     init();
@@ -20,7 +51,7 @@ function init() {
     document.querySelectorAll(".beer-text-wrapper .primary-btn").forEach(btn => btn.addEventListener("click", learnMore))
 
     const orderBtns = document.querySelectorAll(".order-btn-wrapper button");
-    orderBtns.forEach(btn => btn.addEventListener("click", orderBeer))
+    orderBtns.forEach(btn => btn.addEventListener("click", addBeerQuantity))
 }
 
 function learnMore(e) {
@@ -28,7 +59,7 @@ function learnMore(e) {
     e.target.parentNode.parentNode.querySelector("section").classList.toggle("hidden");
 }
 
-function orderBeer(e) {
+function addBeerQuantity(e) {
     let orderAmount = e.target.parentNode.querySelector(".order-amount");
 
     if (e.target.textContent == "+") {
@@ -41,10 +72,14 @@ function orderBeer(e) {
     //if user clicks + - on the beers section
     if (e.target.parentNode.parentNode.parentNode.id == "beers") {
         addBeerToCart(e.target.parentNode.parentNode);
-        updateCartTotal();
+        updateCartTotal("#cart", "#beer-cart-wrapper");
     } else {
         changeBeerQuantity(e.target.parentNode.parentNode);
-        updateCartTotal();
+        updateCartTotal("#cart", "#beer-cart-wrapper");
+    }
+
+    if (e.target.parentNode.parentNode.parentNode.id == "last-order-wrapper"){
+        updateCartTotal("#order", "#last-order-wrapper");
     }
 }
 
@@ -63,14 +98,14 @@ function changeBeerQuantity(beer) {
         beer.parentNode.removeChild(beer);
 }
 
-function updateCartTotal(){
+function updateCartTotal(source, countFrom){
     let totalPrice = 0;
 
-    document.querySelectorAll("#beer-cart-wrapper .beer-wrapper").forEach(beer => {
+    document.querySelectorAll(`${countFrom} .beer-wrapper`).forEach(beer => {
         totalPrice += parseInt(beer.querySelector(".beer-price").textContent) * parseInt(beer.querySelector(".order-amount").textContent);
     })
 
-    document.querySelector("#cart .order-total h2 span").textContent = totalPrice;
+    document.querySelector(`${source} .order-total h2 span`).textContent = totalPrice;
 }
 
 
@@ -92,23 +127,7 @@ function addBeerToCart(beer) {
     //create new template in cart
     if (!isExistingBeer) {
         if (parseInt(beer.querySelector(".order-amount").textContent) != 0) {
-            const newBeer = document.querySelector("#beer-template-quick").content.cloneNode(true);
-
-            newBeer.querySelector("h2").textContent = beer.querySelector("h2").textContent;
-            newBeer.querySelector(".beer-type").textContent = beer.querySelector(".beer-type").textContent;
-            newBeer.querySelector(".beer-alc").textContent = beer.querySelector(".beer-alc").textContent;
-            newBeer.querySelector(".beer-price").textContent = beer.querySelector(".beer-price").textContent;
-            newBeer.querySelector(".order-amount").textContent = beer.querySelector(".order-amount").textContent;
-
-            const orderBtns = newBeer.querySelectorAll(".order-btn-wrapper");
-            orderBtns.forEach(btn => btn.addEventListener("click", orderBeer))
-
-            //give random id to match beer
-            const randId = Math.floor(Math.random() * Math.floor(300));
-            beer.id = randId;
-            newBeer.querySelector(".beer-wrapper").id = randId;
-
-            document.querySelector("#beer-cart-wrapper").appendChild(newBeer);
+            addQuickTemplateFromTemplate(beer, "#beer-cart-wrapper", true);
         }
     } else {
         if (parseInt(beer.querySelector(".order-amount").textContent) == 0) {
@@ -119,12 +138,35 @@ function addBeerToCart(beer) {
 
 }
 
+//quickTemplate is the short version of the template
+function addQuickTemplateFromTemplate(beer, destination, giveId){
+    const newBeer = document.querySelector("#beer-template-quick").content.cloneNode(true);
+
+    newBeer.querySelector("h2").textContent = beer.querySelector("h2").textContent;
+    newBeer.querySelector(".beer-type").textContent = beer.querySelector(".beer-type").textContent;
+    newBeer.querySelector(".beer-alc").textContent = beer.querySelector(".beer-alc").textContent;
+    newBeer.querySelector(".beer-price").textContent = beer.querySelector(".beer-price").textContent;
+    newBeer.querySelector(".order-amount").textContent = beer.querySelector(".order-amount").textContent;
+
+    const orderBtns = newBeer.querySelectorAll(".order-btn-wrapper");
+    orderBtns.forEach(btn => btn.addEventListener("click", addBeerQuantity))
+
+    //give random id to match beer
+    if(giveId){
+    const randId = Math.floor(Math.random() * Math.floor(300));
+    beer.id = randId;
+    newBeer.querySelector(".beer-wrapper").id = randId;
+    }
+
+    document.querySelector(destination).appendChild(newBeer);
+}
+
 // post the orders to the Heroku server
 
-function sendOrder() {
+function sendOrder(source) {
     let postingData = [];
 
-    let cartContent = document.querySelectorAll("#beer-cart-wrapper .beer-wrapper");
+    let cartContent = document.querySelectorAll(`${source} .beer-wrapper`);
     cartContent.forEach(element => {
         let beerName = element.querySelector("h2").textContent;
         let beerAmount = element.querySelector(".order-amount").textContent;
@@ -139,22 +181,63 @@ function sendOrder() {
 
 
     if(postingData.length!=0){
-    db.post(postingData);
-    //need timeout to get response
-    setTimeout(() => {
-        let response = db.getResponse();       
-        
-        if (response.status == 500){ 
-            document.querySelector("#order-response-text").textContent = response.message;
-        }else{
-            toggleOrderScreen("Order was successfully added!", true);
-            document.querySelector("#beer-cart-wrapper").innerHTML = "";
-            updateCartTotal();
+        db.post(postingData);
+
+        const user = netlifyIdentity.currentUser();
+        if (user!=null){
+            localStorage.setItem(user.email, JSON.stringify(postingData));
+            addPreviousOrder();
         }
-    }, 100);
+
+        //need timeout to get response
+        setTimeout(() => {
+            let response = db.getResponse();       
+            
+            if (response.status == 500){ 
+                document.querySelector("#order-response-text").classList.remove("hidden");
+                document.querySelector("#order-response-text").textContent = response.message;
+            }else{
+                toggleOrderScreen("Order was successfully added!", true);
+                resetBeerOrders();
+                updateCartTotal("#cart", "#beer-cart-wrapper");
+                document.querySelector("#order-response-text").classList.add("hidden");
+            }
+        }, 100);
     }
 
 };
+
+function addPreviousOrder(){
+    const user = netlifyIdentity.currentUser();
+    console.log(localStorage.getItem(user.email));
+    const previousOrder = JSON.parse(localStorage.getItem(user.email));
+
+    document.querySelector("#last-order-wrapper").innerHTML = "";
+
+    for (let orderedBeer of previousOrder) {
+        document.querySelectorAll("#beers .beer-wrapper").forEach(beerRef => {
+            if(beerRef.querySelector("h2").textContent == orderedBeer.name) {
+                addQuickTemplateFromTemplate(beerRef, "#last-order-wrapper", false);
+            }
+        })
+
+        document.querySelectorAll("#last-order-wrapper .beer-wrapper").forEach(addedBeer => {
+            if(addedBeer.querySelector("h2").textContent == orderedBeer.name) {
+                addedBeer.querySelector(".order-amount").textContent = orderedBeer.amount;
+            }
+        })
+
+        console.log(orderedBeer.name, orderedBeer.amount);
+    }
+
+    updateCartTotal("#order", "#last-order-wrapper");
+}
+
+function resetBeerOrders() {
+    document.querySelector("#beer-cart-wrapper").innerHTML = "";
+
+    document.querySelectorAll(".order-amount").forEach(el => el.textContent = 0);
+}
 
 function toggleOrderScreen(message, showQueue){
 
@@ -196,18 +279,11 @@ function addBeerTemplate(dataArray) {
 //! NETLIFY LINK FOR LOCAL TESTING: https://jovial-heisenberg-33c1c2.netlify.app
 
 //open login modal on button click
-document.querySelector("#login-btn").addEventListener('click', function () {
-    netlifyIdentity.open();
-});
+
 
 
 // Bind to login/logout events and log the user name
-netlifyIdentity.on('login', user => console.log('login suscessfull. User:', user.user_metadata.full_name));
-netlifyIdentity.on('logout', () => console.log('Logged out'));
 
-
-
-const user = netlifyIdentity.currentUser();
 // console.log(user);
 // console.log(user);
 // console.log(user.user_metadata.full_name);
