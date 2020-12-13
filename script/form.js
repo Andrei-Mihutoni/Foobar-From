@@ -34,6 +34,7 @@ function checkLoggedIn(){
     if (user == null) {
         document.querySelector("#logged-in-text").classList.remove("hidden");
         document.querySelector("#order .order-total").classList.add("hidden");
+        document.querySelector("#last-order-wrapper").innerHTML = "";
     } else {
         document.querySelector("#order .order-total").classList.remove("hidden");
         document.querySelector("#logged-in-text").classList.add("hidden");
@@ -51,7 +52,8 @@ function init() {
     document.querySelectorAll(".beer-text-wrapper .primary-btn").forEach(btn => btn.addEventListener("click", learnMore))
 
     const orderBtns = document.querySelectorAll(".order-btn-wrapper button");
-    orderBtns.forEach(btn => btn.addEventListener("click", addBeerQuantity))
+    orderBtns.forEach(btn => btn.addEventListener("click", addBeerQuantity));
+    checkLoggedIn();
 }
 
 function learnMore(e) {
