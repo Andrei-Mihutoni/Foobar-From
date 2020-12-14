@@ -44,7 +44,7 @@ function checkLoggedIn(){
 
 setTimeout(() => {
     init();
-}, 100);
+}, 200);
 
 function init() {
     addBeerTemplate(db.getData());
