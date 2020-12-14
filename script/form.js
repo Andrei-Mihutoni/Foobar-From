@@ -18,6 +18,11 @@ document.querySelector("#confirm-last-order").addEventListener("click", function
 document.querySelector("#login-btn").addEventListener('click', function () {
     netlifyIdentity.open();
 });
+document.querySelector("#quick-order-login-btn").addEventListener('click', function () {
+    netlifyIdentity.open();
+});
+
+
 netlifyIdentity.on('login', user => {
     console.log('login suscessfull. User:', user.user_metadata.full_name)
     checkLoggedIn();
@@ -32,35 +37,19 @@ netlifyIdentity.on('logout', () => {
 
 let card = new Card({ form: 'form', container: '.card-wrapper'})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function checkLoggedIn(){
     const user = netlifyIdentity.currentUser();
     if (user == null) {
         document.querySelector("#logged-in-text").classList.remove("hidden");
         document.querySelector("#order .order-total").classList.add("hidden");
         document.querySelector("#last-order-wrapper").innerHTML = "";
+        document.querySelector("#quick-order-login-btn").classList.remove("hidden");
+        document.querySelector("#login-btn").textContent = "Log In";
     } else {
         document.querySelector("#order .order-total").classList.remove("hidden");
         document.querySelector("#logged-in-text").classList.add("hidden");
+        document.querySelector("#quick-order-login-btn").classList.add("hidden");
+        document.querySelector("#login-btn").textContent = "Log Out";
     }
 }
 
@@ -77,6 +66,18 @@ function init() {
     const orderBtns = document.querySelectorAll(".order-btn-wrapper button");
     orderBtns.forEach(btn => btn.addEventListener("click", addBeerQuantity));
     checkLoggedIn();
+
+    addRecommendedBeer();
+}
+
+function addRecommendedBeer(){
+    let beers = document.querySelectorAll("#beers .beer-wrapper");
+    let randomBeer = Math.floor(Math.random() * beers.length);
+    let recommendedTexts = document.querySelectorAll("#recommended-texts p");
+    let randomText = Math.floor(Math.random() * 3);
+    recommendedTexts[randomText].classList.remove("hidden");
+    console.log(beers[randomBeer]);
+    addQuickTemplateFromTemplate(beers[randomBeer], "#recommended-wrapper", false)
 }
 
 function learnMore(e) {
@@ -95,14 +96,13 @@ function addBeerQuantity(e) {
     }
 
     //if user clicks + - on the beers section
-    if (e.target.parentNode.parentNode.parentNode.id == "beers") {
+    if (e.target.parentNode.parentNode.parentNode.id == "beers" || e.target.parentNode.parentNode.parentNode.id == "recommended-wrapper" ) {
         addBeerToCart(e.target.parentNode.parentNode);
         updateCartTotal("#cart", "#beer-cart-wrapper");
     } else {
         changeBeerQuantity(e.target.parentNode.parentNode);
         updateCartTotal("#cart", "#beer-cart-wrapper");
     }
-
     if (e.target.parentNode.parentNode.parentNode.id == "last-order-wrapper"){
         updateCartTotal("#order", "#last-order-wrapper");
     }
@@ -172,6 +172,7 @@ function addQuickTemplateFromTemplate(beer, destination, giveId){
     newBeer.querySelector(".beer-alc").textContent = beer.querySelector(".beer-alc").textContent;
     newBeer.querySelector(".beer-price").textContent = beer.querySelector(".beer-price").textContent;
     newBeer.querySelector(".order-amount").textContent = beer.querySelector(".order-amount").textContent;
+    newBeer.querySelector(".beer-label").src = beer.querySelector(".beer-label").src;
 
     const orderBtns = newBeer.querySelectorAll(".order-btn-wrapper");
     orderBtns.forEach(btn => btn.addEventListener("click", addBeerQuantity))
@@ -284,6 +285,7 @@ function addBeerTemplate(dataArray) {
         template.querySelector(".beer-type").textContent = data.category;
         template.querySelector(".beer-alc").textContent = data.alc;
         template.querySelector(".beer-desc").textContent = data.description.overallImpression;
+        template.querySelector(".beer-label").src = "/assets/labels/" + data.label;
 
 
         template.querySelector(".aroma").textContent = data.description.aroma;

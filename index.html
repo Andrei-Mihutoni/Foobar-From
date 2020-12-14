@@ -23,7 +23,7 @@
         <img id="side-menu" class="menu-icon" src="assets/menu.png"></img>
         <div class="side-menu-wrapper">
             <li class="primary-btn" id="payment-btn">Payment</li>
-            <li class="primary-btn" id="login-btn">Login</li>
+            <li class="primary-btn" id="login-btn">Log In</li>
         </div>
     </div>
     <div class="menu-wrapper">
@@ -50,7 +50,10 @@
         <section id="beers">
             <template id="beer-template-quick">
                 <div class="beer-wrapper quick">
+                    <div class="beer-img-div">
                     <img class="beer-img" src="assets/beer-glass.png">
+                    <img class="beer-label" src="">
+                    </div>
                     <div class="beer-text-wrapper">
                         <h2>El hefe</h2>
                         <p class="beer-stats"><span class="beer-type">IPA</span> * <span class="beer-alc">7.9</span>%</p>
@@ -65,7 +68,10 @@
             </template>
             <template id="beer-template">
                 <div class="beer-wrapper">
+                    <div class="beer-img-div">
                     <img class="beer-img" src="assets/beer-glass.png">
+                    <img class="beer-label" src="">
+                    </div>
                     <div class="beer-text-wrapper">
                         <h2>El hefe</h2>
                         <p class="beer-stats"><span class="beer-type">IPA</span> * <span class="beer-alc">7.9</span>% * <span class="beer-price">35</span> dkk</p>
@@ -94,25 +100,18 @@
         </section>
         <section class="hidden" id="order">
             <h1 class="section-header">WE RECOMMEND</h1>
-            <div class="flex">
-                <p>For a table of</p><select>
-                    <option>1</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
+            <div id="recommended-texts">
+                <p class="hidden">Hi, I'm Jonas and today I recommend you:</p>
+                <p class="hidden">Hi, I'm Peter and today I recommend you:</p>
+                <p class="hidden">Hi, I'm Dannie and today I recommend you:</p>
             </div>
-            <div class="flex">
-                <p>who prefer</p><select>
-                    <option>IPA</option>
-                    <option>Lager</option>
-                    <option>Pilsner</option>
-                </select>
-            </div>
+            <div id="recommended-wrapper"></div>
+
             <h1 class="section-header">YOUR LAST ORDER</h1>
 
             <div id="last-order-wrapper"></div>
             <h1 id ="logged-in-text" class="hidden">Log in to see your previous orders</h1>
+            <button class="primary-btn active" id="quick-order-login-btn">Log In</button>
             <div class="order-total">
                 <p>TOTAL</p>
                 <h2><span>0</span> DKK</h2>
