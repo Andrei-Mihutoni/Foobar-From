@@ -5,6 +5,7 @@
 import * as db from "../modules/db.mjs";
 import * as anim from "../modules/animation.mjs";
 import { prepareData } from "../modules/db.mjs";
+// import * as Card from "card";
 
 db.get(prepareData);
 
@@ -28,6 +29,28 @@ netlifyIdentity.on('logout', () => {
     console.log('Logged out')
     checkLoggedIn();   
 });
+
+let card = new Card({ form: 'form', container: '.card-wrapper'})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function checkLoggedIn(){
     const user = netlifyIdentity.currentUser();

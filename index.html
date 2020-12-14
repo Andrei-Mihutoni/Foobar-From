@@ -137,6 +137,20 @@
                 </div>
             </div>
             <h1 class="section-header">CREDIT CARDS</h1>
+            <div class="card-wrapper"></div>
+            <form class="card-form">
+                <label for="name">Name: </label>
+                <input type="text" name="name" placeholder="John Doe"/>
+                <label for="number">Card number: </label>
+                <input type="text" name="number" placeholder="5555 5555 5555 5555"/>
+                <div>
+                    <label for="expiry">Expiry date: </label>
+                    <input class="input-expiry" type="text" name="expiry" placeholder="12/2000"/>
+                    <label class="label-cvc" for="cvc">CVC: </label>
+                    <input class="input-cvc" type="text" name="cvc" placeholder="555"/>
+                </div>
+            </form>
+            <button class="primary-btn active">Save card</button>
         </section>
         <section class="hidden" id="cart">
             <h1 class="section-header">YOUR ORDER</h1>
@@ -171,5 +185,6 @@
     <footer></footer>
 </body>
 <script src="script/form.js" type="module"></script>
+<script src="/node_modules/card/dist/card.js"></script>
 
 </html>
