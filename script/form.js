@@ -29,6 +29,9 @@ netlifyIdentity.on('login', user => {
     setTimeout(() => {
         addPreviousOrder();        
     }, 100);
+    setTimeout(() => {
+        netlifyIdentity.close();
+    }, 1500); 
 });
 netlifyIdentity.on('logout', () => {
     console.log('Logged out')
