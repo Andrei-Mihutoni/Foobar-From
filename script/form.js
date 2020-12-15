@@ -13,13 +13,19 @@ document.querySelector("#confirm-order").addEventListener("click", function(){
     sendOrder("#beer-cart-wrapper");
 });
 document.querySelector("#confirm-last-order").addEventListener("click", function(){
-    sendOrder("#last-order-wrapper");
+    toggleConfirmScreen();
 });
 document.querySelector("#login-btn").addEventListener('click', function () {
     netlifyIdentity.open();
 });
 document.querySelector("#quick-order-login-btn").addEventListener('click', function () {
     netlifyIdentity.open();
+});
+document.querySelector("#review-order").addEventListener("click", function() {
+    toggleConfirmScreen(getCartBeerInfo()); 
+});
+document.querySelector("#review-order-back").addEventListener("click", function() {
+    toggleConfirmScreen(getCartBeerInfo());
 });
 
 
@@ -76,15 +82,16 @@ function init() {
 function addRecommendedBeer(){
     let beers = document.querySelectorAll("#beers .beer-wrapper");
     let randomBeer = Math.floor(Math.random() * beers.length);
+
     let recommendedTexts = document.querySelectorAll("#recommended-texts p");
     let randomText = Math.floor(Math.random() * 3);
+
     recommendedTexts[randomText].classList.remove("hidden");
-    console.log(beers[randomBeer]);
+    
     addQuickTemplateFromTemplate(beers[randomBeer], "#recommended-wrapper", false)
 }
 
 function learnMore(e) {
-    console.log("learnmore");
     e.target.parentNode.parentNode.querySelector("section").classList.toggle("hidden");
 }
 
@@ -120,6 +127,8 @@ function changeBeerQuantity(beer) {
         if (beer.id == beerOf.id)
             existingBeer = beerOf;
     }
+
+    if(existingBeer)
     existingBeer.querySelector(".order-amount").textContent = beer.querySelector(".order-amount").textContent;
 
     if (parseInt(beer.querySelector(".order-amount").textContent) == 0)
@@ -134,6 +143,22 @@ function updateCartTotal(source, countFrom){
     })
 
     document.querySelector(`${source} .order-total h2 span`).textContent = totalPrice;
+
+    updateCartNavAmount();
+}
+
+function updateCartNavAmount() {
+    let cartBtnAmount = document.querySelector("#cart-btn-amount");
+    let totalBeers = 0;
+
+    document.querySelectorAll("#beer-cart-wrapper .order-amount").forEach(el => totalBeers += parseInt(el.textContent));
+    console.log(totalBeers)
+    cartBtnAmount.textContent = totalBeers;
+    if(cartBtnAmount.textContent == "0")
+        cartBtnAmount.classList.add("hidden");
+    else
+        cartBtnAmount.classList.remove("hidden");
+
 }
 
 
@@ -206,7 +231,7 @@ function sendOrder(source) {
         })
     });
 
-    console.log(postingData);
+    console.warn(postingData);
 
 
     if(postingData.length!=0){
@@ -225,8 +250,9 @@ function sendOrder(source) {
             if (response.status == 500){ 
                 document.querySelector("#order-response-text").classList.remove("hidden");
                 document.querySelector("#order-response-text").textContent = response.message;
+                document.querySelector("#order-confirm-screen").classList.add("hidden");
             }else{
-                toggleOrderScreen("Order was successfully added!", true);
+                toggleOrderScreen("Your order has been successfuly sent", response.id, true);
                 resetBeerOrders();
                 updateCartTotal("#cart", "#beer-cart-wrapper");
                 document.querySelector("#order-response-text").classList.add("hidden");
@@ -268,15 +294,42 @@ function resetBeerOrders() {
     document.querySelectorAll(".order-amount").forEach(el => el.textContent = 0);
 }
 
-function toggleOrderScreen(message, showQueue){
+function toggleConfirmScreen(beers) {
+    console.log(beers);
+    let orderConfirmScreen = document.querySelector("#order-confirm-screen");
+
+    document.querySelector("#order-confirm-contents").innerHTML = "";
+    for(let i=0;i<beers.beerTitles.length;i++) {
+        let beerText = document.createElement("p");
+        beerText.textContent = beers.beerTitles[i] + ' x ' + beers.beerAmounts[i] + ' pcs.';
+        document.querySelector("#order-confirm-contents").appendChild(beerText);
+    }
+    orderConfirmScreen.classList.toggle("hidden");
+}
+
+function getCartBeerInfo(){
+
+    let beerH2 = document.querySelectorAll("#beer-cart-wrapper h2");
+    let beerAmountsElements = document.querySelectorAll("#beer-cart-wrapper .order-amount");
+    let beerTitles = [];
+    let beerAmounts = [];
+    for(let i=0; i<beerH2.length ;i++){
+        beerTitles[i] = beerH2[i].textContent;
+        beerAmounts[i] = beerAmountsElements[i].textContent;
+    }
+    return { beerTitles, beerAmounts};
+}
+
+function toggleOrderScreen(message, orderId,showQueue){
 
     let orderFeedbackScreen = document.querySelector("#order-feedback-screen");
 
-    if(showQueue){
+    if(!showQueue){
         orderFeedbackScreen.querySelector("p").classList.add("hidden");
     }
 
     orderFeedbackScreen.querySelector("h1").textContent = message;
+    orderFeedbackScreen.querySelector("p span").textContent = orderId;
 
     orderFeedbackScreen.classList.toggle("hidden");
 }

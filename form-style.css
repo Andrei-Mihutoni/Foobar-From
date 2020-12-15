@@ -107,6 +107,23 @@ li {
   list-style: none;
 }
 
+#cart-btn-div {
+  position: relative;
+}
+
+#cart-btn-amount {
+  position: absolute;
+  width: 17px;
+  text-align: center;
+  right: 0px;
+  top: -25px;
+  padding: 2px;
+  color: white;
+  background-color: #ff5f5f;
+  border-radius: 50%;
+  font-size: 15px;
+}
+
 .primary-btn {
   border-radius: 28px;
   display: inline-block;
@@ -150,7 +167,7 @@ li {
 
 .beer-text-wrapper {
   margin-left: 10px;
-  max-width: 150px;
+  max-width: 140px;
 }
 
 .beer-img-div {
@@ -206,7 +223,7 @@ li {
   margin-left: auto;
   flex-flow: column;
   align-self: center;
-  margin-right: 10px;
+  margin-right: 20px;
 }
 
 .order-btn {
@@ -313,7 +330,7 @@ li {
 }
 
 .quick .beer-text-wrapper {
-  margin-left: 15px;
+  margin-left: 10px;
 }
 
 .quick h2 {
@@ -410,7 +427,8 @@ select {
 
 /* ORDER FEEDBACK */
 
-#order-feedback-screen {
+#order-feedback-screen,
+#order-confirm-screen {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -418,7 +436,8 @@ select {
   z-index: 100;
 }
 
-.order-feedback-wrapper {
+#order-confirm-wrapper,
+#order-feedback-wrapper {
   margin: 50% auto;
   display: block;
   width: 70%;

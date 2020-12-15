@@ -12,10 +12,20 @@
 </head>
 
 <body>
+    <div id="order-confirm-screen" class="hidden">
+        <div id="order-confirm-wrapper">
+            <h1>Your order:</h1>
+            <div id="order-confirm-contents">
+
+            </div>
+            <button class="primary-btn" id="review-order-back">Back</button>
+            <button class="primary-btn active" id="confirm-order">Confirm order</button>
+        </div>
+    </div>
     <div id="order-feedback-screen" class="hidden">
-        <div class="order-feedback-wrapper">
+        <div id="order-feedback-wrapper">
         <h1>Order was successfully sent!</h1>
-        <p>Your position in queue: <span>0</span></p>
+        <p>Your order ID: #<span>0</span></p>
         <button class="primary-btn active ">Return</button>
     </div>
     </div>
@@ -35,7 +45,10 @@
         <ul>
             <li class="primary-btn active" id="beers-btn">Beers</li>
             <li class="primary-btn" id="order-btn">Quick order</li>
-            <li class="primary-btn" id="cart-btn">Cart</li>
+            <div id="cart-btn-div">
+                <p id="cart-btn-amount">0</p>
+                <li class="primary-btn" id="cart-btn">Cart</li>
+            </div>
         </ul>
     </nav>
 
@@ -152,7 +165,7 @@
             <button class="primary-btn active">Save card</button>
         </section>
         <section class="hidden" id="cart">
-            <h1 class="section-header">YOUR ORDER</h1>
+            <h1 class="section-header">YOUR CART</h1>
             <div id="beer-cart-wrapper">
 
 
@@ -176,7 +189,7 @@
                     <label for="payment-order-cash"><img src="assets/cash.png">Cash</label>
                 </div>
             </div>
-            <button class="primary-btn active confirm" id="confirm-order">Confirm Order</button>
+            <button class="primary-btn active confirm" id="review-order">Review Order</button>
             <h1 id="order-response-text"></h1>
         </section>
 

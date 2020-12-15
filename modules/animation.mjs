@@ -12,7 +12,8 @@ document.querySelectorAll("#side-menu").forEach(btn => btn.addEventListener("cli
 document.querySelector("#order-feedback-screen button").addEventListener("click", toggleOrderScreen);
 
 function toggleOrderScreen(){
-    document.querySelector("#order-feedback-screen").classList.toggle("hidden");
+    document.querySelector("#order-feedback-screen").classList.add("hidden");
+    document.querySelector("#order-confirm-screen").classList.add("hidden");
 }
 
 function changeSection(e) {
