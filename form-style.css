@@ -122,6 +122,16 @@ li {
   background-color: #ff5f5f;
   border-radius: 50%;
   font-size: 15px;
+  pointer-events: none;
+}
+
+#cart-card-wrapper {
+  margin-top: 50px;
+}
+
+#payment-option-text {
+  text-align: center;
+  margin-top: 50px;
 }
 
 .primary-btn {

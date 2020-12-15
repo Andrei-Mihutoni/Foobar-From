@@ -176,8 +176,8 @@
             </div>
             <h1 class="section-header">PAYMENT</h1>
             <div class="payment-options">
-                <div class="payment-btn selected">
-                    <input type="radio" id="payment-order-mobilepay" name="payment" value="mobilepay" checked>
+                <div class="payment-btn">
+                    <input type="radio" id="payment-order-mobilepay" name="payment" value="mobilepay">
                     <label for="payment-order-mobilepay"><img src="assets/mobilepay.png"> MobilePay</label>
                 </div>
                 <div class="payment-btn">
@@ -188,6 +188,22 @@
                     <input type="radio" id="payment-order-cash" name="payment" value="cash">
                     <label for="payment-order-cash"><img src="assets/cash.png">Cash</label>
                 </div>
+            </div>
+            <p id="payment-option-text" class="hidden"></p>
+            <div id="cart-card-wrapper" class="hidden">
+                <div class="card-wrapper"></div>
+                <form class="card-form">
+                    <label for="name">Name: </label>
+                    <input type="text" name="name" placeholder="John Doe"/>
+                    <label for="number">Card number: </label>
+                    <input type="text" name="number" placeholder="5555 5555 5555 5555" />
+                    <div>
+                        <label for="expiry">Expiry date: </label>
+                        <input class="input-expiry" type="text" name="expiry" placeholder="12/2000" />
+                        <label class="label-cvc" for="cvc">CVC: </label>
+                        <input class="input-cvc" type="text" name="cvc" placeholder="555"/>
+                    </div>
+                </form>
             </div>
             <button class="primary-btn active confirm" id="review-order">Review Order</button>
             <h1 id="order-response-text"></h1>

@@ -44,7 +44,8 @@ netlifyIdentity.on('logout', () => {
     checkLoggedIn();   
 });
 
-let card = new Card({ form: 'form', container: '.card-wrapper'})
+let card = new Card({ form: '#payment .card-form', container: '#payment .card-wrapper'})
+let card2 = new Card({ form: '#cart .card-form', container: '#cart .card-wrapper'})
 
 function checkLoggedIn(){
     const user = netlifyIdentity.currentUser();
@@ -59,6 +60,7 @@ function checkLoggedIn(){
         document.querySelector("#logged-in-text").classList.add("hidden");
         document.querySelector("#quick-order-login-btn").classList.add("hidden");
         document.querySelector("#login-btn").textContent = "Log Out";
+        document.querySelector("#cart-card-wrapper").classList.add("hidden");
     }
 }
 
