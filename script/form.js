@@ -30,7 +30,7 @@ document.querySelector("#review-order-back").addEventListener("click", function(
 
 
 netlifyIdentity.on('login', user => {
-    console.log('login suscessfull. User:', user.user_metadata.full_name)
+    console.log('[INFO] LOGGED IN. USER:', user.user_metadata.full_name)
     checkLoggedIn();
     setTimeout(() => {
         addPreviousOrder();        
@@ -40,7 +40,7 @@ netlifyIdentity.on('login', user => {
     }, 1500); 
 });
 netlifyIdentity.on('logout', () => {
-    console.log('Logged out')
+    console.log('[INFO] LOGGED OUT')
     checkLoggedIn();   
 });
 
@@ -152,7 +152,6 @@ function updateCartNavAmount() {
     let totalBeers = 0;
 
     document.querySelectorAll("#beer-cart-wrapper .order-amount").forEach(el => totalBeers += parseInt(el.textContent));
-    console.log(totalBeers)
     cartBtnAmount.textContent = totalBeers;
     if(cartBtnAmount.textContent == "0")
         cartBtnAmount.classList.add("hidden");
@@ -174,8 +173,6 @@ function addBeerToCart(beer) {
             isExistingBeer = true;
         existingBeer = cartBeer;
     }
-
-    console.log(parseInt(beer.querySelector(".order-amount").textContent))
 
     //create new template in cart
     if (!isExistingBeer) {
@@ -231,7 +228,8 @@ function sendOrder(source) {
         })
     });
 
-    console.warn(postingData);
+    console.warn("[INFO] POSTED DATA: ");
+    console.log(postingData);
 
 
     if(postingData.length!=0){
@@ -264,7 +262,7 @@ function sendOrder(source) {
 
 function addPreviousOrder(){
     const user = netlifyIdentity.currentUser();
-    console.log(localStorage.getItem(user.email));
+    console.log("[INFO] PREVIOUS ORDER FROM LOCALSTORAGE: " + localStorage.getItem(user.email));
     const previousOrder = JSON.parse(localStorage.getItem(user.email));
 
     document.querySelector("#last-order-wrapper").innerHTML = "";
@@ -282,7 +280,6 @@ function addPreviousOrder(){
             }
         })
 
-        console.log(orderedBeer.name, orderedBeer.amount);
     }
 
     updateCartTotal("#order", "#last-order-wrapper");
@@ -295,7 +292,6 @@ function resetBeerOrders() {
 }
 
 function toggleConfirmScreen(beers) {
-    console.log(beers);
     let orderConfirmScreen = document.querySelector("#order-confirm-screen");
 
     document.querySelector("#order-confirm-contents").innerHTML = "";

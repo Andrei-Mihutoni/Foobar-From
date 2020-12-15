@@ -26,7 +26,8 @@ export function post(data) {
         body: postData
     })
         .then(res => res.json())
-        .then(data => {console.log(data)
+        .then(data => {console.warn("[INFO] DB RESPONSE: ");
+        console.log(data);
             response = data;
         });
 }
@@ -45,7 +46,8 @@ export function prepareData(data) {
 };
 
 function showData(data){
-    console.log(data);
+    console.log("[INFO] RETRIEVED DATA: ");
+    console.warn(data);
 }
 
 export function getData(){

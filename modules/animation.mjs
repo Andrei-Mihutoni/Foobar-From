@@ -6,7 +6,6 @@ let activeSection = "beers";
 document.querySelectorAll("li").forEach(btn => btn.addEventListener("click", changeSection));
 document.querySelectorAll("input[type=radio]").forEach(btn => {
     btn.addEventListener("click", setActivePaymentOption)
-    console.log(btn);
 });
 document.querySelectorAll("#side-menu").forEach(btn => btn.addEventListener("click", toggleSideMenu));
 document.querySelector("#order-feedback-screen button").addEventListener("click", toggleOrderScreen);
@@ -40,7 +39,6 @@ function changeSection(e) {
 
     if(activeSection == "payment") {
         const user = netlifyIdentity.currentUser();
-        console.log(user);
         if(user==null){
             netlifyIdentity.open();
             document.querySelector("#beers").classList.remove("hidden");
@@ -62,7 +60,7 @@ function changeSection(e) {
 
 
 
-    console.log(activeSection);
+    console.log("[INFO] ACTIVE SECTION: " + activeSection);
 }
 
 function toggleSideMenu() {
@@ -70,7 +68,7 @@ function toggleSideMenu() {
 }
 
 function setActivePaymentOption(e) {
-    console.log(e.target);
+    console.log("[INFO] ACTIVE PAYMENT OPTION: " + e.target);
     e.target.parentNode.parentNode.querySelectorAll("div").forEach(div => div.classList.remove("selected"));
     e.target.parentNode.classList.add("selected");
 }
