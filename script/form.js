@@ -1,20 +1,18 @@
 "use strict";
 
-
-
 import * as db from "../modules/db.mjs";
 import * as anim from "../modules/animation.mjs";
 import { prepareData } from "../modules/db.mjs";
-// import * as Card from "card";
 
 db.get(prepareData);
 
-document.querySelector("#confirm-order").addEventListener("click", function(){
-    sendOrder("#beer-cart-wrapper");
-});
-document.querySelector("#confirm-last-order").addEventListener("click", function(){
-    toggleConfirmScreen();
-});
+let card = new Card({ form: '#payment .card-form', container: '#payment .card-wrapper'})
+let card2 = new Card({ form: '#cart .card-form', container: '#cart .card-wrapper'})
+let fromLastOrder = false; // quick fix to send order from last order
+// toggleConfirmScreen > toggleOrderScreen > sendOrder
+
+//* EVENTLISTENERS
+
 document.querySelector("#login-btn").addEventListener('click', function () {
     netlifyIdentity.open();
 });
@@ -22,19 +20,31 @@ document.querySelector("#quick-order-login-btn").addEventListener('click', funct
     netlifyIdentity.open();
 });
 document.querySelector("#review-order").addEventListener("click", function() {
-    toggleConfirmScreen(getCartBeerInfo()); 
+    toggleConfirmScreen(getCartBeerInfo("#beer-cart-wrapper")); 
 });
 document.querySelector("#review-order-back").addEventListener("click", function() {
-    toggleConfirmScreen(getCartBeerInfo());
+    toggleConfirmScreen(getCartBeerInfo("#beer-cart-wrapper"));
+    fromLastOrder = false;
+});
+document.querySelector("#confirm-last-order").addEventListener("click", function(){
+    toggleConfirmScreen(getCartBeerInfo("#last-order-wrapper"));
+    fromLastOrder = true;
+});
+document.querySelector("#confirm-order").addEventListener("click", function(){
+    if(fromLastOrder) sendOrder("#last-order-wrapper");
+    else sendOrder("#beer-cart-wrapper");
+
+    fromLastOrder = false;
 });
 
+//* NETLIFY
 
 netlifyIdentity.on('login', user => {
     console.log('[INFO] LOGGED IN. USER:', user.user_metadata.full_name)
     checkLoggedIn();
     setTimeout(() => {
         addPreviousOrder();        
-    }, 100);
+    }, 200);
     setTimeout(() => {
         netlifyIdentity.close();
     }, 1500); 
@@ -43,9 +53,6 @@ netlifyIdentity.on('logout', () => {
     console.log('[INFO] LOGGED OUT')
     checkLoggedIn();   
 });
-
-let card = new Card({ form: '#payment .card-form', container: '#payment .card-wrapper'})
-let card2 = new Card({ form: '#cart .card-form', container: '#cart .card-wrapper'})
 
 function checkLoggedIn(){
     const user = netlifyIdentity.currentUser();
@@ -65,12 +72,14 @@ function checkLoggedIn(){
 }
 
 
+//* INIT
+
 setTimeout(() => {
     init();
 }, 200);
 
 function init() {
-    addBeerTemplate(db.getData());
+    addBeerTemplates(db.getData());
 
     document.querySelectorAll(".beer-text-wrapper .primary-btn").forEach(btn => btn.addEventListener("click", learnMore))
 
@@ -81,6 +90,8 @@ function init() {
     addRecommendedBeer();
 }
 
+//* BEERS
+
 function addRecommendedBeer(){
     let beers = document.querySelectorAll("#beers .beer-wrapper");
     let randomBeer = Math.floor(Math.random() * beers.length);
@@ -90,7 +101,8 @@ function addRecommendedBeer(){
 
     recommendedTexts[randomText].classList.remove("hidden");
     
-    addQuickTemplateFromTemplate(beers[randomBeer], "#recommended-wrapper", false)
+    addQuickTemplateFromTemplate(beers[randomBeer], "#recommended-wrapper", false);
+    document.querySelector("#recommended-wrapper .order-btn-wrapper").classList.add("hidden");
 }
 
 function learnMore(e) {
@@ -108,7 +120,7 @@ function addBeerQuantity(e) {
     }
 
     //if user clicks + - on the beers section
-    if (e.target.parentNode.parentNode.parentNode.id == "beers" || e.target.parentNode.parentNode.parentNode.id == "recommended-wrapper" ) {
+    if (e.target.parentNode.parentNode.parentNode.id == "beers") {
         addBeerToCart(e.target.parentNode.parentNode);
         updateCartTotal("#cart", "#beer-cart-wrapper");
     } else {
@@ -137,6 +149,8 @@ function changeBeerQuantity(beer) {
         beer.parentNode.removeChild(beer);
 }
 
+//* CART
+
 function updateCartTotal(source, countFrom){
     let totalPrice = 0;
 
@@ -162,7 +176,7 @@ function updateCartNavAmount() {
 
 }
 
-
+//! Buggy when removing beers from the "beers" tab
 function addBeerToCart(beer) {
 
     let isExistingBeer = false;
@@ -190,6 +204,8 @@ function addBeerToCart(beer) {
 
 }
 
+//* TEMPLATE
+
 //quickTemplate is the short version of the template
 function addQuickTemplateFromTemplate(beer, destination, giveId){
     const newBeer = document.querySelector("#beer-template-quick").content.cloneNode(true);
@@ -214,6 +230,27 @@ function addQuickTemplateFromTemplate(beer, destination, giveId){
     document.querySelector(destination).appendChild(newBeer);
 }
 
+function addBeerTemplates(dataArray) {
+    for (let data of dataArray) {
+        const template = document.querySelector("#beer-template").content.cloneNode(true);
+        template.querySelector("h2").textContent = data.name;
+        template.querySelector(".beer-type").textContent = data.category;
+        template.querySelector(".beer-alc").textContent = data.alc;
+        template.querySelector(".beer-desc").textContent = data.description.overallImpression;
+        template.querySelector(".beer-label").src = "/assets/labels/" + data.label;
+
+
+        template.querySelector(".aroma").textContent = data.description.aroma;
+        template.querySelector(".appearance").textContent = data.description.appearance;
+        template.querySelector(".flavor").textContent = data.description.flavor;
+        template.querySelector(".mouthfeel").textContent = data.description.mouthfeel;
+        template.querySelector(".overall").textContent = data.description.overallImpression;
+
+        document.querySelector("#beers").appendChild(template);
+    }
+}
+
+//* ORDER
 // post the orders to the Heroku server
 
 function sendOrder(source) {
@@ -257,15 +294,16 @@ function sendOrder(source) {
                 updateCartTotal("#cart", "#beer-cart-wrapper");
                 document.querySelector("#order-response-text").classList.add("hidden");
             }
-        }, 100);
-    }
+        }, 200);
+    }  
 
+    return postingData;
 };
 
 function addPreviousOrder(){
     const user = netlifyIdentity.currentUser();
-    console.log("[INFO] PREVIOUS ORDER FROM LOCALSTORAGE: " + localStorage.getItem(user.email));
     const previousOrder = JSON.parse(localStorage.getItem(user.email));
+    console.log("[INFO] PREVIOUS ORDER FROM LOCALSTORAGE: " + localStorage.getItem(user.email));
 
     document.querySelector("#last-order-wrapper").innerHTML = "";
 
@@ -276,6 +314,7 @@ function addPreviousOrder(){
             }
         })
 
+        //! doesn't add beer quantity if adding last order after normal order
         document.querySelectorAll("#last-order-wrapper .beer-wrapper").forEach(addedBeer => {
             if(addedBeer.querySelector("h2").textContent == orderedBeer.name) {
                 addedBeer.querySelector(".order-amount").textContent = orderedBeer.amount;
@@ -293,6 +332,23 @@ function resetBeerOrders() {
     document.querySelectorAll(".order-amount").forEach(el => el.textContent = 0);
 }
 
+function getCartBeerInfo(source){
+
+    let beerH2 = document.querySelectorAll(`${source} h2`);
+    let beerAmountsElements = document.querySelectorAll(`${source} .order-amount`);
+    let beerTitles = [];
+    let beerAmounts = [];
+
+    for(let i=0; i<beerH2.length ;i++){
+        beerTitles[i] = beerH2[i].textContent;
+        beerAmounts[i] = beerAmountsElements[i].textContent;
+    }
+
+    return {beerTitles, beerAmounts};
+}
+
+//* SCREENS
+
 function toggleConfirmScreen(beers) {
     let orderConfirmScreen = document.querySelector("#order-confirm-screen");
 
@@ -301,21 +357,9 @@ function toggleConfirmScreen(beers) {
         let beerText = document.createElement("p");
         beerText.textContent = beers.beerTitles[i] + ' x ' + beers.beerAmounts[i] + ' pcs.';
         document.querySelector("#order-confirm-contents").appendChild(beerText);
+        console.log(beerText);
     }
     orderConfirmScreen.classList.toggle("hidden");
-}
-
-function getCartBeerInfo(){
-
-    let beerH2 = document.querySelectorAll("#beer-cart-wrapper h2");
-    let beerAmountsElements = document.querySelectorAll("#beer-cart-wrapper .order-amount");
-    let beerTitles = [];
-    let beerAmounts = [];
-    for(let i=0; i<beerH2.length ;i++){
-        beerTitles[i] = beerH2[i].textContent;
-        beerAmounts[i] = beerAmountsElements[i].textContent;
-    }
-    return { beerTitles, beerAmounts};
 }
 
 function toggleOrderScreen(message, orderId,showQueue){
@@ -331,41 +375,3 @@ function toggleOrderScreen(message, orderId,showQueue){
 
     orderFeedbackScreen.classList.toggle("hidden");
 }
-
-function addBeerTemplate(dataArray) {
-    for (let data of dataArray) {
-        const template = document.querySelector("#beer-template").content.cloneNode(true);
-        template.querySelector("h2").textContent = data.name;
-        template.querySelector(".beer-type").textContent = data.category;
-        template.querySelector(".beer-alc").textContent = data.alc;
-        template.querySelector(".beer-desc").textContent = data.description.overallImpression;
-        template.querySelector(".beer-label").src = "/assets/labels/" + data.label;
-
-
-        template.querySelector(".aroma").textContent = data.description.aroma;
-        template.querySelector(".appearance").textContent = data.description.appearance;
-        template.querySelector(".flavor").textContent = data.description.flavor;
-        template.querySelector(".mouthfeel").textContent = data.description.mouthfeel;
-        template.querySelector(".overall").textContent = data.description.overallImpression;
-
-        document.querySelector("#beers").appendChild(template);
-    }
-}
-
-
-
-
-// *** Log in - netlify identity ***
-
-//! NETLIFY LINK FOR LOCAL TESTING: https://jovial-heisenberg-33c1c2.netlify.app
-
-//open login modal on button click
-
-
-
-// Bind to login/logout events and log the user name
-
-// console.log(user);
-// console.log(user);
-// console.log(user.user_metadata.full_name);
-
