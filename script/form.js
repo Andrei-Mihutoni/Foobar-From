@@ -45,6 +45,8 @@ netlifyIdentity.on('login', user => {
     setTimeout(() => {
         addPreviousOrder();        
     }, 200);
+
+    //close login screen after a bit
     setTimeout(() => {
         netlifyIdentity.close();
     }, 1500); 
@@ -74,6 +76,7 @@ function checkLoggedIn(){
 
 //* INIT
 
+//dirty fix to wait for fetching
 setTimeout(() => {
     init();
 }, 200);
@@ -85,6 +88,7 @@ function init() {
 
     const orderBtns = document.querySelectorAll(".order-btn-wrapper button");
     orderBtns.forEach(btn => btn.addEventListener("click", addBeerQuantity));
+
     checkLoggedIn();
 
     addRecommendedBeer();
@@ -289,7 +293,7 @@ function sendOrder(source) {
                 document.querySelector("#order-response-text").textContent = response.message;
                 document.querySelector("#order-confirm-screen").classList.add("hidden");
             }else{
-                toggleOrderScreen("Your order has been successfuly sent", response.id, true);
+                toggleOrderScreen("Your order has been successfuly sent", response.id);
                 resetBeerOrders();
                 updateCartTotal("#cart", "#beer-cart-wrapper");
                 document.querySelector("#order-response-text").classList.add("hidden");
@@ -362,13 +366,8 @@ function toggleConfirmScreen(beers) {
     orderConfirmScreen.classList.toggle("hidden");
 }
 
-function toggleOrderScreen(message, orderId,showQueue){
-
+function toggleOrderScreen(message, orderId){
     let orderFeedbackScreen = document.querySelector("#order-feedback-screen");
-
-    if(!showQueue){
-        orderFeedbackScreen.querySelector("p").classList.add("hidden");
-    }
 
     orderFeedbackScreen.querySelector("h1").textContent = message;
     orderFeedbackScreen.querySelector("p span").textContent = orderId;
