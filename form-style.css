@@ -194,7 +194,6 @@ li {
 
 .beer-label {
   position: absolute;
-  background-color: red;
   width: 65px;
   height: 75px;
   left: 11px;
@@ -438,7 +437,8 @@ select {
 /* ORDER FEEDBACK */
 
 #order-feedback-screen,
-#order-confirm-screen {
+#order-confirm-screen,
+#unfinished-feature-screen {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -447,7 +447,8 @@ select {
 }
 
 #order-confirm-wrapper,
-#order-feedback-wrapper {
+#order-feedback-wrapper,
+#unfinished-feature-wrapper {
   margin: 50% auto;
   display: block;
   width: 70%;

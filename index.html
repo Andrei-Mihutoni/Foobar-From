@@ -29,17 +29,24 @@
         <button class="primary-btn active ">Return</button>
     </div>
     </div>
+    <div id="unfinished-feature-screen" class="hidden">
+        <div id="unfinished-feature-wrapper">
+        <h1>Uh oh!</h1>
+        <p>This feature is not yet added. Follow our updates to see when this will be available.</p>
+        <button class="primary-btn active ">Return</button>
+    </div>
+    </div>
     <div class="side-menu">
-        <img id="side-menu" class="menu-icon" src="assets/menu.png"></img>
+        <img id="side-menu" class="menu-icon" src="assets/menu.png" alt="Side menu icon"></img>
         <div class="side-menu-wrapper">
             <li class="primary-btn" id="payment-btn">Payment</li>
             <li class="primary-btn" id="login-btn">Log In</li>
         </div>
     </div>
     <div class="menu-wrapper">
-        <img id="side-menu" class="menu-icon" src="assets/menu.png"></img>
+        <img id="side-menu" class="menu-icon" src="assets/menu.png" alt="Side menu icon"></img>
         <h1>FooBar</h1>
-        <img class="menu-icon" src="assets/loupe.png"></img>
+        <img class="menu-icon" src="assets/loupe.png" id="search-btn" alt="Search icon"></img>
     </div>
     <nav>
         <ul>
@@ -64,8 +71,8 @@
             <template id="beer-template-quick">
                 <div class="beer-wrapper quick">
                     <div class="beer-img-div">
-                    <img class="beer-img" src="assets/beer-glass.png">
-                    <img class="beer-label" src="">
+                    <img class="beer-img" src="assets/beer-glass.png" alt="Beer glass">
+                    <img class="beer-label" src="" alt="Beer Label">
                     </div>
                     <div class="beer-text-wrapper">
                         <h2>El hefe</h2>
@@ -82,8 +89,8 @@
             <template id="beer-template">
                 <div class="beer-wrapper">
                     <div class="beer-img-div">
-                    <img class="beer-img" src="assets/beer-glass.png">
-                    <img class="beer-label" src="">
+                    <img class="beer-img" src="assets/beer-glass.png" alt="Beer glass">
+                    <img class="beer-label" src="" alt="Beer label">
                     </div>
                     <div class="beer-text-wrapper">
                         <h2>El hefe</h2>
@@ -137,15 +144,15 @@
             <div class="payment-options">
                 <div class="payment-btn">
                     <input type="radio" id="payment-mobilepay" name="payment-setting" value="mobilepay">
-                    <label for="payment-mobilepay"><img src="assets/mobilepay.png"> MobilePay</label>
+                    <label for="payment-mobilepay"><img src="assets/mobilepay.png" alt="Mobilepay icon"> MobilePay</label>
                 </div>
                 <div class="payment-btn">
                     <input type="radio" id="payment-card" name="payment-setting" value="card">
-                    <label for="payment-card"><img src="assets/card.png">Card</label>
+                    <label for="payment-card"><img src="assets/card.png" alt="Card icon">Card</label>
                 </div>
                 <div class="payment-btn selected">
                     <input type="radio" id="payment-cash" name="payment-setting" value="cash">
-                    <label for="payment-cash"><img src="assets/cash.png">Cash</label>
+                    <label for="payment-cash"><img src="assets/cash.png" alt="Cash icon">Cash</label>
                 </div>
             </div>
             <h1 class="section-header">CREDIT CARDS</h1>
@@ -162,7 +169,7 @@
                     <input class="input-cvc" type="text" name="cvc" placeholder="555"/>
                 </div>
             </form>
-            <button class="primary-btn active">Save card</button>
+            <button class="primary-btn active" id="save-card-btn">Save card</button>
         </section>
         <section class="hidden" id="cart">
             <h1 class="section-header">YOUR CART</h1>
@@ -180,15 +187,15 @@
             <div class="payment-options">
                 <div class="payment-btn">
                     <input type="radio" id="payment-order-mobilepay" name="payment" value="mobilepay">
-                    <label for="payment-order-mobilepay"><img src="assets/mobilepay.png"> MobilePay</label>
+                    <label for="payment-order-mobilepay"><img src="assets/mobilepay.png" alt="Mobilepay icon"> MobilePay</label>
                 </div>
                 <div class="payment-btn">
                     <input type="radio" id="payment-order-card" name="payment" value="card">
-                    <label for="payment-order-card"><img src="assets/card.png">Card</label>
+                    <label for="payment-order-card"><img src="assets/card.png" alt="Card Icon">Card</label>
                 </div>
                 <div class="payment-btn">
                     <input type="radio" id="payment-order-cash" name="payment" value="cash">
-                    <label for="payment-order-cash"><img src="assets/cash.png">Cash</label>
+                    <label for="payment-order-cash"><img src="assets/cash.png" alt="Cash icon">Cash</label>
                 </div>
             </div>
             <p id="payment-option-text" class="hidden"></p>

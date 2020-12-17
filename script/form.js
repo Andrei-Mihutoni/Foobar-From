@@ -11,6 +11,9 @@ let card2 = new Card({ form: '#cart .card-form', container: '#cart .card-wrapper
 let fromLastOrder = false; // quick fix to send order from last order
 // toggleConfirmScreen > toggleOrderScreen > sendOrder
 
+//! FOR LOCALHOST NETLIFY TESTING: https://foo-order-form.netlify.app/
+
+
 //* EVENTLISTENERS
 
 document.querySelector("#login-btn").addEventListener('click', function () {
@@ -36,6 +39,10 @@ document.querySelector("#confirm-order").addEventListener("click", function(){
 
     fromLastOrder = false;
 });
+document.querySelector("#unfinished-feature-screen button").addEventListener("click", toggleUnfinishedFeatureScreen);
+document.querySelector("#search-btn").addEventListener("click", toggleUnfinishedFeatureScreen);
+document.querySelector("#save-card-btn").addEventListener("click", toggleUnfinishedFeatureScreen);
+
 
 //* NETLIFY
 
@@ -311,21 +318,23 @@ function addPreviousOrder(){
 
     document.querySelector("#last-order-wrapper").innerHTML = "";
 
-    for (let orderedBeer of previousOrder) {
-        document.querySelectorAll("#beers .beer-wrapper").forEach(beerRef => {
-            if(beerRef.querySelector("h2").textContent == orderedBeer.name) {
-                addQuickTemplateFromTemplate(beerRef, "#last-order-wrapper", false);
-            }
-        })
+    if(previousOrder){
+        for (let orderedBeer of previousOrder) {
+            document.querySelectorAll("#beers .beer-wrapper").forEach(beerRef => {
+                if(beerRef.querySelector("h2").textContent == orderedBeer.name) {
+                    addQuickTemplateFromTemplate(beerRef, "#last-order-wrapper", false);
+                }
+            })
 
-        //! doesn't add beer quantity if adding last order after normal order
-        document.querySelectorAll("#last-order-wrapper .beer-wrapper").forEach(addedBeer => {
-            if(addedBeer.querySelector("h2").textContent == orderedBeer.name) {
-                addedBeer.querySelector(".order-amount").textContent = orderedBeer.amount;
-            }
-        })
+            //! doesn't add beer quantity if adding last order after normal order
+            document.querySelectorAll("#last-order-wrapper .beer-wrapper").forEach(addedBeer => {
+                if(addedBeer.querySelector("h2").textContent == orderedBeer.name) {
+                    addedBeer.querySelector(".order-amount").textContent = orderedBeer.amount;
+                }
+            })
 
-    }
+        }
+}
 
     updateCartTotal("#order", "#last-order-wrapper");
 }
@@ -373,4 +382,11 @@ function toggleOrderScreen(message, orderId){
     orderFeedbackScreen.querySelector("p span").textContent = orderId;
 
     orderFeedbackScreen.classList.toggle("hidden");
+}
+
+
+function toggleUnfinishedFeatureScreen(){
+    let toggleUnfinishedFeatureScreen = document.querySelector("#unfinished-feature-screen");
+
+    toggleUnfinishedFeatureScreen.classList.toggle("hidden");
 }
