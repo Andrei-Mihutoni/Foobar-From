@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Andrei-Mihutoni/fooBar#readme",
   "dependencies": {
     "card": "^2.5.0",
-    "netlify-identity-widget": "^1.9.1"
+    "netlify-identity-widget": "^1.9.1",
+    "uglify-js": "^3.12.2"
   }
 }

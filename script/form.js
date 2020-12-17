@@ -1,8 +1,8 @@
 "use strict";
 
-import * as db from "../modules/db.mjs";
-import * as anim from "../modules/animation.mjs";
-import { prepareData } from "../modules/db.mjs";
+import * as db from "../modules/db.min.mjs";
+import * as anim from "../modules/animation.min.mjs";
+import { prepareData } from "../modules/db.min.mjs";
 
 db.get(prepareData);
 
