@@ -248,7 +248,7 @@ function addBeerTemplates(dataArray) {
         template.querySelector(".beer-type").textContent = data.category;
         template.querySelector(".beer-alc").textContent = data.alc;
         template.querySelector(".beer-desc").textContent = data.description.overallImpression;
-        template.querySelector(".beer-label").src = "/assets/labels/" + data.label;
+        template.querySelector(".beer-label").src = "/assets/labels/" + data.label.split(".")[0] + ".jpg";
 
 
         template.querySelector(".aroma").textContent = data.description.aroma;
