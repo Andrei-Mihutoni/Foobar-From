@@ -557,10 +557,39 @@ select {
     width: 80%;
     margin-left: 10%;
   }
+
+  #beer-cart-wrapper {
+    width: 80%;
+    margin-left: 10%;
+  }
+
+  .order-total {
+    margin-right: 10%;
+  }
+
+  .section-header {
+    margin-left: 20px;
+  }
+
+  #recommended-texts p {
+    margin-left: 20px;
+  }
+
+  .payment-options {
+    width: 300px;
+  }
 }
 
 @media only screen and (max-width: 350px) {
   .beer-text-wrapper {
     margin-left: 0;
+  }
+
+  .quick .beer-wrapper {
+    margin-left: 0;
+  }
+
+  .quick .beer-text-wrapper {
+    width: 75px;
   }
 }
