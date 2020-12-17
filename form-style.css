@@ -529,3 +529,21 @@ select {
 .card-wrapper {
   margin: 10px 20px;
 }
+
+@media only screen and (min-width: 450px) {
+  .beer-text-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 200px;
+  }
+
+  .beer-desc {
+    width: auto;
+    max-width: 250px;
+  }
+
+  .beer-stats {
+    width: 100%;
+    max-width: 250px;
+  }
+}
