@@ -547,3 +547,9 @@ select {
     max-width: 250px;
   }
 }
+
+@media only screen and (max-width: 350px) {
+  .beer-text-wrapper {
+    margin-left: 0;
+  }
+}
